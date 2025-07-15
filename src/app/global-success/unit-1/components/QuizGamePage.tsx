@@ -10,6 +10,7 @@ import { vocabularyData, VocabularyCard } from "./VocabularyData";
 import { SetPageProps } from "./types";
 import { cn } from "@/lib/utils";
 import { Trophy, Zap, Target, Clock, Star } from "lucide-react";
+import { useQuizStore } from "@/stores/quizStore";
 
 interface QuizQuestion {
   definition: string;
@@ -87,16 +88,29 @@ const FloatingScore = ({ score, show }: { score: number; show: boolean }) => (
 export const QuizGamePage = ({ setPage }: SetPageProps) => {
   const [questions, setQuestions] = useState<QuizQuestion[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [score, setScore] = useState(0);
   const [feedback, setFeedback] = useState<"correct" | "incorrect" | null>(null);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [gameOver, setGameOver] = useState(false);
   const [timeLeft, setTimeLeft] = useState(INITIAL_TIME_PER_QUESTION);
-  const [correctStreak, setCorrectStreak] = useState(0);
   const [showParticles, setShowParticles] = useState(false);
   const [showFloatingScore, setShowFloatingScore] = useState(false);
-  const [maxStreak, setMaxStreak] = useState(0);
+  const [finalResult, setFinalResult] = useState<any>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Zustand store
+  const { 
+    startSession, 
+    updateSession, 
+    endSession, 
+    clearSession, 
+    getSessionStats 
+  } = useQuizStore();
+
+  // Get current session stats
+  const sessionStats = getSessionStats();
+  const score = sessionStats?.currentScore || 0;
+  const correctStreak = sessionStats?.currentStreak || 0;
+  const maxStreak = sessionStats?.maxStreak || 0;
 
   // Audio refs
   const correctSound = useRef<HTMLAudioElement | null>(null);
@@ -134,22 +148,32 @@ export const QuizGamePage = ({ setPage }: SetPageProps) => {
   }, [correctStreak]);
 
   const handleAnswerClick = useCallback((answer: string) => {
-    if (feedback) return; // Prevent multiple clicks
+    if (feedback || !sessionStats) return; // Prevent multiple clicks
     if (timerRef.current) {
       clearInterval(timerRef.current);
     }
 
+    // Safety check for current question
+    if (!questions[currentQuestionIndex]) {
+      console.error('Current question is undefined', { currentQuestionIndex, questionsLength: questions.length });
+      return;
+    }
+
     setSelectedAnswer(answer);
     const isCorrect = answer === questions[currentQuestionIndex].correctWord;
+    const isTimeout = answer === "TIME_OUT";
 
-    if (isCorrect) {
-      setScore((prev) => prev + 1);
-      setFeedback("correct");
-      setCorrectStreak((prev) => {
-        const newStreak = prev + 1;
-        setMaxStreak((maxPrev) => Math.max(maxPrev, newStreak));
-        return newStreak;
+    if (isCorrect && !isTimeout) {
+      const newScore = sessionStats.currentScore + 1;
+      const newStreak = sessionStats.currentStreak + 1;
+      
+      updateSession({
+        currentScore: newScore,
+        currentStreak: newStreak,
+        completedQuestions: sessionStats.completedQuestions + 1
       });
+      
+      setFeedback("correct");
       setShowParticles(true);
       setShowFloatingScore(true);
       playSound(correctSound);
@@ -160,9 +184,15 @@ export const QuizGamePage = ({ setPage }: SetPageProps) => {
         setShowFloatingScore(false);
       }, 2000);
     } else {
-      setFeedback("incorrect");
-      setCorrectStreak(0); // Reset streak on incorrect answer
-      playSound(incorrectSound);
+      updateSession({
+        currentStreak: 0, // Reset streak on incorrect answer or timeout
+        completedQuestions: sessionStats.completedQuestions + 1
+      });
+      
+      if (!isTimeout) {
+        setFeedback("incorrect");
+        playSound(incorrectSound);
+      }
     }
 
     setTimeout(() => {
@@ -171,16 +201,20 @@ export const QuizGamePage = ({ setPage }: SetPageProps) => {
       if (currentQuestionIndex < questions.length - 1) {
         setCurrentQuestionIndex((prev) => prev + 1);
       } else {
+        // End game
+        const result = endSession("unit-1");
+        setFinalResult(result);
         setGameOver(true);
-        // if (backgroundMusic.current) backgroundMusic.current.pause(); // Removed as file not found
-        if (score + (isCorrect ? 1 : 0) >= questions.length / 2) { // Simple win condition
+        
+        // Play end game sound
+        if (result.accuracy >= 50) {
           playSound(winSound);
         } else {
           playSound(loseSound);
         }
       }
-    }, 1500); // Show feedback for 1.5 seconds
-  }, [feedback, questions, currentQuestionIndex, score]);
+    }, isTimeout ? 500 : 1500); // Shorter delay for timeout
+  }, [feedback, questions, currentQuestionIndex, sessionStats, updateSession, endSession]);
 
   const startTimer = useCallback(() => {
     if (timerRef.current) {
@@ -201,8 +235,12 @@ export const QuizGamePage = ({ setPage }: SetPageProps) => {
   }, [calculateTimeForQuestion, handleAnswerClick]);
 
   useEffect(() => {
-    setQuestions(shuffleArray(generateQuizQuestions(vocabularyData)));
-  }, []);
+    const shuffledQuestions = shuffleArray(generateQuizQuestions(vocabularyData));
+    setQuestions(shuffledQuestions);
+    
+    // Initialize session
+    startSession(shuffledQuestions.length);
+  }, [startSession]);
 
   useEffect(() => {
     if (questions.length > 0 && !gameOver) {
@@ -219,16 +257,20 @@ export const QuizGamePage = ({ setPage }: SetPageProps) => {
   }, [currentQuestionIndex, questions, gameOver, startTimer]);
 
   const resetGame = () => {
-    setQuestions(shuffleArray(generateQuizQuestions(vocabularyData)));
+    const shuffledQuestions = shuffleArray(generateQuizQuestions(vocabularyData));
+    setQuestions(shuffledQuestions);
     setCurrentQuestionIndex(0);
-    setScore(0);
     setFeedback(null);
     setSelectedAnswer(null);
     setGameOver(false);
-    setCorrectStreak(0);
-    setMaxStreak(0);
     setShowParticles(false);
     setShowFloatingScore(false);
+    setFinalResult(null);
+    
+    // Reset session
+    clearSession();
+    startSession(shuffledQuestions.length);
+    
     startTimer();
     playSound(startSound);
     // if (backgroundMusic.current) backgroundMusic.current.play().catch(e => console.error("Error playing background music:", e)); // Removed as file not found
@@ -238,7 +280,17 @@ export const QuizGamePage = ({ setPage }: SetPageProps) => {
     return <div className="flex justify-center items-center min-h-screen">Loading Quiz...</div>;
   }
 
+  // Safety check for current question
   const currentQuestion = questions[currentQuestionIndex];
+  if (!currentQuestion && !gameOver) {
+    console.error('Current question is undefined, but game is not over', { 
+      currentQuestionIndex, 
+      questionsLength: questions.length,
+      gameOver 
+    });
+    return <div className="flex justify-center items-center min-h-screen">Loading Quiz...</div>;
+  }
+
   const progressValue = (timeLeft / calculateTimeForQuestion()) * 100;
   const timePercentage = (timeLeft / calculateTimeForQuestion()) * 100;
 
@@ -482,7 +534,9 @@ export const QuizGamePage = ({ setPage }: SetPageProps) => {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.3 }}
                 >
-                  Final Score: <span className="text-yellow-400">{score}/{questions.length}</span>
+                  Final Score: <span className="text-yellow-400">
+                    {finalResult?.score || score}/{finalResult?.totalQuestions || questions.length}
+                  </span>
                 </motion.div>
                 
                 <motion.div
@@ -491,7 +545,9 @@ export const QuizGamePage = ({ setPage }: SetPageProps) => {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.5 }}
                 >
-                  Best Streak: <span className="text-orange-400 font-bold">{maxStreak}</span>
+                  Best Streak: <span className="text-orange-400 font-bold">
+                    {finalResult?.maxStreak || maxStreak}
+                  </span>
                 </motion.div>
                 
                 <motion.div
@@ -501,9 +557,22 @@ export const QuizGamePage = ({ setPage }: SetPageProps) => {
                   transition={{ delay: 0.7 }}
                 >
                   Accuracy: <span className="text-green-400 font-bold">
-                    {Math.round((score / questions.length) * 100)}%
+                    {finalResult?.accuracy || Math.round((score / questions.length) * 100)}%
                   </span>
                 </motion.div>
+
+                {finalResult && (
+                  <motion.div
+                    className="text-sm text-gray-300"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.9 }}
+                  >
+                    Time Spent: <span className="text-blue-400 font-bold">
+                      {Math.floor(finalResult.timeSpent / 60)}m {finalResult.timeSpent % 60}s
+                    </span>
+                  </motion.div>
+                )}
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -513,7 +582,7 @@ export const QuizGamePage = ({ setPage }: SetPageProps) => {
                 >
                   <Button 
                     onClick={resetGame} 
-                    className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-8 py-4 text-xl font-bold rounded-xl shadow-lg"
+                    className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-6 py-4 text-lg font-bold rounded-xl shadow-lg"
                   >
                     🎮 Play Again
                   </Button>
@@ -524,9 +593,22 @@ export const QuizGamePage = ({ setPage }: SetPageProps) => {
                   whileTap={{ scale: 0.95 }}
                 >
                   <Button 
+                    onClick={() => setPage("history")} 
+                    variant="outline"
+                    className="border-2 border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-white px-6 py-4 text-lg font-bold rounded-xl"
+                  >
+                    📊 View History
+                  </Button>
+                </motion.div>
+                
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Button 
                     onClick={() => setPage("home")} 
                     variant="outline"
-                    className="border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black px-8 py-4 text-xl font-bold rounded-xl"
+                    className="border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black px-6 py-4 text-lg font-bold rounded-xl"
                   >
                     🏠 Back to Home
                   </Button>

@@ -6,6 +6,7 @@ import { FlashcardsPage } from "./components/FlashcardsPage";
 import { MatchingGamePage } from "./components/MatchingGamePage";
 import { HomePage } from "./components/HomePage";
 import { QuizGamePage } from "./components/QuizGamePage";
+import { QuizHistory } from "./components/QuizHistory";
 import { PageType } from "./components/types";
 
 export default function App() {
@@ -19,6 +20,8 @@ export default function App() {
         return <MatchingGamePage setPage={setPage} />;
       case "quiz":
         return <QuizGamePage setPage={setPage} />;
+      case "history":
+        return <QuizHistory setPage={setPage} />;
       case "home":
       default:
         return <HomePage setPage={setPage} />;

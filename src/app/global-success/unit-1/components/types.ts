@@ -1,4 +1,4 @@
-export type PageType = "home" | "flashcards" | "game" | "quiz";
+export type PageType = "home" | "flashcards" | "game" | "quiz" | "history";
 
 export interface SetPageProps {
   setPage: (page: PageType) => void;
