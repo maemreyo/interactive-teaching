@@ -108,7 +108,7 @@ export const QuizGamePage = ({ setPage }: SetPageProps) => {
 
   useEffect(() => {
     correctSound.current = new Audio('/sounds/correct.mp3');
-    incorrectSound.current = new Audio('/sounds/incorrect.wav'); // Updated to .wav
+    incorrectSound.current = new Audio('/sounds/incorreact.wav'); // Updated to .wav
     startSound.current = new Audio('/sounds/start.wav'); // Updated to .wav
     winSound.current = new Audio('/sounds/win.wav'); // Updated to .wav
     loseSound.current = new Audio('/sounds/lose.wav'); // Updated to .wav

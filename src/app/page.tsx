@@ -19,7 +19,7 @@ export default function HomePage() {
         transition={{ duration: 0.5 }}
       >
         <h1 className="text-5xl md:text-7xl font-extrabold text-gray-800 mb-4">
-          Welcome to PDF to Learn
+          Welcome to Interactive Learning
         </h1>
         <p className="text-xl text-gray-500 max-w-2xl mx-auto mb-12">
           Choose a unit to start your vocabulary learning journey.
