@@ -1,0 +1,1 @@
+Using the `task-create-table.md` template, create a sortable and searchable data table for the vocabulary words and their definitions from the uploaded document. The table should have two columns: 'Word' and 'Definition'. Make both columns sortable and add a search input to filter by 'Word'. Add a subtle fade-in animation to each table row as it appears using `framer-motion`.

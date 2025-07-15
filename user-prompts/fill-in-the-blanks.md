@@ -1,0 +1,1 @@
+Using the `task-create-form.md` template, generate a fill-in-the-blanks exercise. From the uploaded document, take each vocabulary word and create a sentence where that word is missing. Provide an input field (`shadcn/ui` Input) for each blank. Include a submit button to check answers. Add a subtle fade-in animation to each input field using `framer-motion`.
