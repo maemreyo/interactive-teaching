@@ -5,10 +5,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FlashcardsPage } from "./components/FlashcardsPage";
 import { MatchingGamePage } from "./components/MatchingGamePage";
 import { HomePage } from "./components/HomePage";
+import { QuizGamePage } from "./components/QuizGamePage";
 import { PageType } from "./components/types";
 
 export default function App() {
-  const [page, setPage] = useState<PageType>("home"); // 'home', 'flashcards', 'game'
+  const [page, setPage] = useState<PageType>("home"); // 'home', 'flashcards', 'game', 'quiz'
 
   const renderPage = () => {
     switch (page) {
@@ -16,6 +17,8 @@ export default function App() {
         return <FlashcardsPage setPage={setPage} />;
       case "game":
         return <MatchingGamePage setPage={setPage} />;
+      case "quiz":
+        return <QuizGamePage setPage={setPage} />;
       case "home":
       default:
         return <HomePage setPage={setPage} />;

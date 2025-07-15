@@ -50,6 +50,19 @@ export const HomePage = ({ setPage }: SetPageProps) => (
           <p>Test your memory by matching words to their definitions.</p>
         </CardContent>
       </Card>
+      <Card
+        className="w-72 p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer"
+        onClick={() => setPage("quiz")}
+      >
+        <CardHeader>
+          <CardTitle className="text-2xl text-purple-700">
+            Choose the Right Word
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p>Select the correct word for the given definition.</p>
+        </CardContent>
+      </Card>
     </motion.div>
   </div>
 );
