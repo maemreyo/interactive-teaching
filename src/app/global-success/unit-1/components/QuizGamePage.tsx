@@ -63,19 +63,18 @@ export const QuizGamePage = ({ setPage }: SetPageProps) => {
   const startSound = useRef<HTMLAudioElement | null>(null);
   const winSound = useRef<HTMLAudioElement | null>(null);
   const loseSound = useRef<HTMLAudioElement | null>(null);
-  const backgroundMusic = useRef<HTMLAudioElement | null>(null);
+  // const backgroundMusic = useRef<HTMLAudioElement | null>(null); // Removed as file not found
 
   useEffect(() => {
     correctSound.current = new Audio('/sounds/correct.mp3');
-    incorrectSound.current = new Audio('/sounds/incorrect.wav');
-    startSound.current = new Audio('/sounds/start.mp3');
-    winSound.current = new Audio('/sounds/win.wav');
-    loseSound.current = new Audio('/sounds/lose.mp3');
-    backgroundMusic.current = new Audio('/sounds/background_music.mp3');
-    if (backgroundMusic.current) {
-      backgroundMusic.current.loop = true;
-      backgroundMusic.current.volume = 0.3; // Adjust volume as needed
-    }
+    incorrectSound.current = new Audio('/sounds/incorrect.wav'); // Updated to .wav
+    startSound.current = new Audio('/sounds/start.wav'); // Updated to .wav
+    winSound.current = new Audio('/sounds/win.wav'); // Updated to .wav
+    loseSound.current = new Audio('/sounds/lose.wav'); // Updated to .wav
+    // if (backgroundMusic.current) {
+    //   backgroundMusic.current.loop = true;
+    //   backgroundMusic.current.volume = 0.3; // Adjust volume as needed
+    // }
   }, []);
 
   const playSound = (audioRef: React.MutableRefObject<HTMLAudioElement | null>) => {
@@ -120,7 +119,7 @@ export const QuizGamePage = ({ setPage }: SetPageProps) => {
         setCurrentQuestionIndex((prev) => prev + 1);
       } else {
         setGameOver(true);
-        if (backgroundMusic.current) backgroundMusic.current.pause();
+        // if (backgroundMusic.current) backgroundMusic.current.pause(); // Removed as file not found
         if (score + (isCorrect ? 1 : 0) >= questions.length / 2) { // Simple win condition
           playSound(winSound);
         } else {
@@ -156,13 +155,13 @@ export const QuizGamePage = ({ setPage }: SetPageProps) => {
     if (questions.length > 0 && !gameOver) {
       startTimer();
       playSound(startSound);
-      if (backgroundMusic.current) backgroundMusic.current.play().catch(e => console.error("Error playing background music:", e));
+      // if (backgroundMusic.current) backgroundMusic.current.play().catch(e => console.error("Error playing background music:", e)); // Removed as file not found
     }
     return () => {
       if (timerRef.current) {
         clearInterval(timerRef.current);
       }
-      if (backgroundMusic.current) backgroundMusic.current.pause();
+      // if (backgroundMusic.current) backgroundMusic.current.pause(); // Removed as file not found
     };
   }, [currentQuestionIndex, questions, gameOver, startTimer]);
 
@@ -176,7 +175,7 @@ export const QuizGamePage = ({ setPage }: SetPageProps) => {
     setCorrectStreak(0);
     startTimer();
     playSound(startSound);
-    if (backgroundMusic.current) backgroundMusic.current.play().catch(e => console.error("Error playing background music:", e));
+    // if (backgroundMusic.current) backgroundMusic.current.play().catch(e => console.error("Error playing background music:", e)); // Removed as file not found
   };
 
   if (questions.length === 0) {
