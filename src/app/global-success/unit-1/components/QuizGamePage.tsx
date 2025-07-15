@@ -5,12 +5,11 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 import { vocabularyData, VocabularyCard } from "./VocabularyData";
 import { SetPageProps } from "./types";
 import { cn } from "@/lib/utils";
 import { Trophy, Zap, Target, Clock, Star } from "lucide-react";
-import { useQuizStore } from "@/stores/quizStore";
+import { useQuizStore, QuizResult } from "@/stores/quizStore";
 
 interface QuizQuestion {
   definition: string;
@@ -94,7 +93,7 @@ export const QuizGamePage = ({ setPage }: SetPageProps) => {
   const [timeLeft, setTimeLeft] = useState(INITIAL_TIME_PER_QUESTION);
   const [showParticles, setShowParticles] = useState(false);
   const [showFloatingScore, setShowFloatingScore] = useState(false);
-  const [finalResult, setFinalResult] = useState<any>(null);
+  const [finalResult, setFinalResult] = useState<QuizResult | null>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   // Zustand store
