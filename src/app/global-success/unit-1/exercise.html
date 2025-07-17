@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Tập Ngữ Pháp Tương Tác</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .correct {
+            border-color: #22c55e; /* green-500 */
+            background-color: #f0fdf4; /* green-50 */
+        }
+        .incorrect {
+            border-color: #ef4444; /* red-500 */
+            background-color: #fef2f2; /* red-50 */
+        }
+        .feedback-icon {
+            font-size: 1.25rem;
+            margin-left: 0.5rem;
+        }
+        .correct-icon {
+            color: #22c55e;
+        }
+        .incorrect-icon {
+            color: #ef4444;
+        }
+        .verb-option {
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+            display: inline-block;
+            border: 1px solid #cbd5e1;
+        }
+        .verb-option:hover {
+            background-color: #e0f2fe; /* sky-100 */
+        }
+        .verb-option.selected {
+            background-color: #38bdf8; /* sky-400 */
+            color: white;
+            font-weight: 600;
+            border-color: #0284c7;
+        }
+        .verb-option.correct-choice {
+            background-color: #22c55e;
+            color: white;
+        }
+        .verb-option.incorrect-choice {
+            background-color: #ef4444;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+        <!-- Header and Score -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-8 sticky top-4 z-10 flex justify-between items-center">
+            <h1 class="text-2xl sm:text-3xl font-bold text-blue-600">Bài Tập Ngữ Pháp: Unit 1</h1>
+            <div class="text-center">
+                <span class="text-lg font-medium text-gray-600">Tổng Điểm</span>
+                <div id="score" class="text-5xl font-bold text-green-500 transition-transform transform scale-100">0</div>
+            </div>
+        </div>
+
+        <div class="space-y-8">
+            <!-- Exercise 1: Choose the correct verb form -->
+            <div id="exercise-container-1" class="bg-white rounded-xl shadow-md p-6 exercise-container" data-checked="false">
+                <h2 class="text-xl font-bold mb-4 text-purple-700">Bài 1: Chọn dạng đúng của động từ</h2>
+                <p class="mb-4 text-gray-600">Nhấn vào từ đúng để hoàn thành câu. Mỗi câu đúng được 1 điểm.</p>
+                <div id="exercise1" class="space-y-4"></div>
+                <div class="mt-6 flex justify-end space-x-3">
+                    <button class="reset-btn bg-gray-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-gray-600 transition-all" data-ex-num="1">Làm lại</button>
+                    <button class="check-btn bg-purple-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-purple-700 transition-all" data-ex-num="1">Kiểm tra</button>
+                </div>
+            </div>
+
+            <!-- Exercise 2: Present Simple vs Present Continuous -->
+            <div id="exercise-container-2" class="bg-white rounded-xl shadow-md p-6 exercise-container" data-checked="false">
+                <h2 class="text-xl font-bold mb-4 text-orange-700">Bài 2: Chia động từ ở thì Hiện tại đơn hoặc Hiện tại tiếp diễn</h2>
+                <p class="mb-4 text-gray-600">Điền vào chỗ trống dạng đúng của động từ trong ngoặc. Mỗi câu đúng được 1 điểm.</p>
+                <div id="exercise2" class="space-y-4"></div>
+                <div class="mt-6 flex justify-end space-x-3">
+                    <button class="reset-btn bg-gray-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-gray-600 transition-all" data-ex-num="2">Làm lại</button>
+                    <button class="check-btn bg-orange-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-orange-700 transition-all" data-ex-num="2">Kiểm tra</button>
+                </div>
+            </div>
+
+            <!-- Exercise 3: Complete the text -->
+            <div id="exercise-container-3" class="bg-white rounded-xl shadow-md p-6 exercise-container" data-checked="false">
+                <h2 class="text-xl font-bold mb-4 text-teal-700">Bài 3: Hoàn thành đoạn văn về Leo</h2>
+                <p class="mb-4 text-gray-600">Chia động từ trong ngoặc để hoàn thành đoạn văn. Mỗi câu đúng được 1 điểm.</p>
+                <div id="exercise3" class="space-y-3 text-lg leading-loose"></div>
+                <div class="mt-6 flex justify-end space-x-3">
+                    <button class="reset-btn bg-gray-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-gray-600 transition-all" data-ex-num="3">Làm lại</button>
+                    <button class="check-btn bg-teal-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-teal-700 transition-all" data-ex-num="3">Kiểm tra</button>
+                </div>
+            </div>
+
+            <!-- Exercise 4: Make sentences -->
+            <div id="exercise-container-4" class="bg-white rounded-xl shadow-md p-6 exercise-container" data-checked="false">
+                <h2 class="text-xl font-bold mb-4 text-indigo-700">Bài 4: Hoàn thành câu dùng từ gợi ý</h2>
+                <p class="mb-4 text-gray-600">Điền vào chỗ trống để hoàn thành câu. Mỗi câu đúng được 1 điểm.</p>
+                <div id="exercise4" class="space-y-4"></div>
+                <div class="mt-6 flex justify-end space-x-3">
+                    <button class="reset-btn bg-gray-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-gray-600 transition-all" data-ex-num="4">Làm lại</button>
+                    <button class="check-btn bg-indigo-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-indigo-700 transition-all" data-ex-num="4">Kiểm tra</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const exercisesData = {
+            ex1: {
+                pointsPerAnswer: 1,
+                questions: [
+                    { q: "My father and I {go|are going} jogging every morning.", a: "go" },
+                    { q: "I {go|am going} to the swimming pool with my cousin on Mondays.", a: "go" },
+                    { q: "We {don't study|aren't studying} Physics right now.", a: "aren't studying" },
+                    { q: "My baby sister {sleeps|is sleeping} in the bedroom at the moment.", a: "is sleeping" },
+                    { q: "We {have|are having} Maths, Literature and P.E. on Thursdays.", a: "have" },
+                    { q: "Turn the gas out! The water {boils|is boiling} over.", a: "is boiling" }
+                ]
+            },
+            ex2: {
+                pointsPerAnswer: 1,
+                questions: [
+                    { q: "Samuel (hate) ___ rainy days.", a: "hates" },
+                    { q: "Stop singing! I (learn) ___ English words by heart.", a: "am learning" },
+                    { q: "Those gloves (not look) ___ nice as well as warm.", a: "don't look" },
+                    { q: "___ they (do) ___ an experiment without their teacher right now?", a: ["Are", "doing"] },
+                    { q: "A: Where is Jill? B: She (watch) ___ the cartoon in the living room.", a: "is watching" },
+                    { q: "The school year in Vietnam (begin) ___ in September and (end) ___ in May.", a: ["begins", "ends"] },
+                    { q: "Watch out! The baby (dribble) ___ on your shirt.", a: "is dribbling" },
+                    { q: "We (always - have) ___ a holiday in the summer. We (never - work) ___ in August.", a: ["always have", "never work"] },
+                    { q: "Julie (usually - play) ___ computer games after dinner but today she (watch) ___ TV with her parents.", a: ["usually plays", "is watching"] },
+                    { q: "Quang (be) ___ a teacher. He (usually teach) ___ students but today he (read) ___ a newspaper at home.", a: ["is", "usually teaches", "is reading"] }
+                ]
+            },
+            ex3: {
+                pointsPerAnswer: 1,
+                text: "On my birthday, I (1. sometimes go) ___ out with his friends, or I (2. eat) ___ at a restaurant with my family. My mum (3. usually make) ___ me a birthday cake. My dad and sisters (4. usually - give) ___ me birthday presents. But this birthday is different! It's Leo's eighteenth birthday, so now he's an adult. This morning, he got a lot of presents. Now he (5. have) ___ a big party with all his friends. Some of his friends (6. dance) ___ to music. Others (7. eat) ___ delicious cakes and fruit. Leo (8. talk) ___ happily with his cousin, Anna.",
+                answers: ["sometimes go", "eat", "usually makes", "usually give", "is having", "are dancing", "are eating", "is talking"]
+            },
+            ex4: {
+                pointsPerAnswer: 1,
+                questions: [
+                    { q: "Students/often/ go camping/ the summer. <br>→ Students often ___ camping in the summer.", a: "go" },
+                    { q: "Nga/talk/ the phone/her boyfriend/ at the moment. <br>→ Nga ___ on the phone with her boyfriend at the moment.", a: "is talking" },
+                    { q: "They/do/judo/ now. <br>→ They ___ judo now.", a: "are doing" },
+                    { q: "Harry/ sometimes/play/badminton/ his brother. <br>→ Harry sometimes ___ badminton with his brother.", a: "plays" },
+                    { q: "Peter/read/newspaper/wait/ the bus/right now. <br>→ Peter ___ a newspaper and ___ for the bus right now.", a: ["is reading", "waiting"] },
+                    { q: "Their grandma/ always/read/them/story/before/ bedtime. <br>→ Their grandma always ___ them a story before bedtime.", a: "reads" },
+                    { q: "Jim/go/ swimming pool/ his friend/ Monday afternoon. <br>→ Jim ___ to the swimming pool with his friends on Monday afternoons.", a: "goes" },
+                    { q: "Look!/ someone/try/ steal/ that man/wallet. <br>→ Look! Someone ___ to steal that man's wallet.", a: "is trying" },
+                    { q: "Sam and Sarah/wait/bus/right now? <br>→ ___ Sam and Sarah ___ for the bus right now?", a: ["Are", "waiting"] },
+                    { q: "Mom/always/advise/me/ do exercise/ enhance my health. <br>→ My mom always ___ me to do exercises to enhance my health.", a: "advises" }
+                ]
+            }
+        };
+
+        function createInput(id, widthClass = 'w-40') {
+            return `<input type="text" id="${id}" class="inline-block ${widthClass} p-1 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">`;
+        }
+        
+        function createFeedbackSpan(id) {
+            return `<span id="feedback-${id}" class="feedback-icon inline-block align-middle"></span>`;
+        }
+
+        function renderAllExercises() {
+            // Render Exercise 1
+            const ex1Container = document.getElementById('exercise1');
+            ex1Container.innerHTML = exercisesData.ex1.questions.map((item, index) => {
+                const options = item.q.match(/\{(.*?)\}/)[1].split('|');
+                const questionText = item.q.replace(/\{.*?\}/, '___');
+                const [before, after] = questionText.split('___');
+                const optionsHtml = options.map(opt => `<span class="verb-option" data-q="1-${index}" data-val="${opt}">${opt}</span>`).join(' / ');
+                return `<div class="flex items-center" id="q-1-${index}"><p class="text-lg">${index + 1}. ${before} <span class="font-semibold">${optionsHtml}</span> ${after}</p>${createFeedbackSpan(`1-${index}`)}</div>`;
+            }).join('');
+
+            // Render Exercise 2
+            const ex2Container = document.getElementById('exercise2');
+            ex2Container.innerHTML = exercisesData.ex2.questions.map((item, index) => {
+                let questionHtml = item.q;
+                if (Array.isArray(item.a)) {
+                    item.a.forEach((_, j) => {
+                        questionHtml = questionHtml.replace('___', createInput(`2-${index}-${j}`));
+                    });
+                } else {
+                    questionHtml = questionHtml.replace('___', createInput(`2-${index}`));
+                }
+                return `<div class="flex items-center"><p class="text-lg">${index + 1}. ${questionHtml}</p>${createFeedbackSpan(`2-${index}`)}</div>`;
+            }).join('');
+
+            // Render Exercise 3
+            const ex3Container = document.getElementById('exercise3');
+            let ex3Html = exercisesData.ex3.text;
+            exercisesData.ex3.answers.forEach((_, index) => {
+                ex3Html = ex3Html.replace('___', `${createInput(`3-${index}`)}${createFeedbackSpan(`3-${index}`)}`);
+            });
+            ex3Container.innerHTML = `<p>${ex3Html}</p>`;
+
+            // Render Exercise 4
+            const ex4Container = document.getElementById('exercise4');
+            ex4Container.innerHTML = exercisesData.ex4.questions.map((item, index) => {
+                let questionHtml = item.q;
+                 if (Array.isArray(item.a)) {
+                    item.a.forEach((_, j) => {
+                        questionHtml = questionHtml.replace('___', createInput(`4-${index}-${j}`, 'w-32'));
+                    });
+                } else {
+                    questionHtml = questionHtml.replace('___', createInput(`4-${index}`, 'w-32'));
+                }
+                return `<div class="flex items-start"><p class="text-lg">${index + 1}. ${questionHtml}</p>${createFeedbackSpan(`4-${index}`)}</div>`;
+            }).join('');
+            
+            addEventListeners();
+        }
+        
+        function addEventListeners() {
+            document.querySelectorAll('.verb-option').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    const questionId = e.target.dataset.q;
+                    document.querySelectorAll(`.verb-option[data-q='${questionId}']`).forEach(opt => opt.classList.remove('selected'));
+                    e.target.classList.add('selected');
+                });
+            });
+
+            document.querySelectorAll('.check-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => checkExercise(e.target.dataset.exNum));
+            });
+
+            document.querySelectorAll('.reset-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => resetExercise(e.target.dataset.exNum));
+            });
+        }
+
+        function updateTotalScore() {
+            let totalScore = 0;
+            document.querySelectorAll('.exercise-container').forEach((container, i) => {
+                const exNum = i + 1;
+                if (container.dataset.checked === 'true') {
+                    totalScore += calculateScoreForExercise(exNum);
+                }
+            });
+            const scoreEl = document.getElementById('score');
+            scoreEl.textContent = totalScore;
+            scoreEl.classList.add('scale-125');
+            setTimeout(() => scoreEl.classList.remove('scale-125'), 300);
+        }
+
+        function calculateScoreForExercise(exNum) {
+            let score = 0;
+            const exData = exercisesData[`ex${exNum}`];
+            
+            if (exNum == 1) {
+                exData.questions.forEach((q, i) => {
+                    const selectedOption = document.querySelector(`#q-1-${i} .verb-option.selected`);
+                    if (selectedOption && selectedOption.dataset.val.toLowerCase().trim() === q.a.toLowerCase().trim()) {
+                        score += exData.pointsPerAnswer;
+                    }
+                });
+            } else if (exNum == 2 || exNum == 4) {
+                 exData.questions.forEach((q, i) => {
+                    let allCorrect = true;
+                    if (Array.isArray(q.a)) {
+                        q.a.forEach((ans, j) => {
+                            const inputEl = document.getElementById(`${exNum}-${i}-${j}`);
+                            if (inputEl.value.toLowerCase().trim() !== ans.toLowerCase().trim()) allCorrect = false;
+                        });
+                    } else {
+                        const inputEl = document.getElementById(`${exNum}-${i}`);
+                        if (inputEl.value.toLowerCase().trim() !== q.a.toLowerCase().trim()) allCorrect = false;
+                    }
+                    if(allCorrect) score += exData.pointsPerAnswer;
+                });
+            } else if (exNum == 3) {
+                exData.answers.forEach((ans, i) => {
+                    const inputEl = document.getElementById(`3-${i}`);
+                    if (inputEl.value.toLowerCase().trim() === ans.toLowerCase().trim()) {
+                        score += exData.pointsPerAnswer;
+                    }
+                });
+            }
+            return score;
+        }
+
+        function checkExercise(exNum) {
+            const container = document.getElementById(`exercise-container-${exNum}`);
+            container.dataset.checked = 'true';
+            const exData = exercisesData[`ex${exNum}`];
+
+            if (exNum == 1) {
+                exData.questions.forEach((q, i) => {
+                    const qContainer = document.getElementById(`q-1-${i}`);
+                    const selectedOption = qContainer.querySelector('.verb-option.selected');
+                    const feedbackEl = document.getElementById(`feedback-1-${i}`);
+                    if (selectedOption) {
+                        if (selectedOption.dataset.val.toLowerCase().trim() === q.a.toLowerCase().trim()) {
+                            selectedOption.classList.add('correct-choice');
+                            feedbackEl.innerHTML = '✔️'; feedbackEl.className = 'feedback-icon correct-icon';
+                        } else {
+                            selectedOption.classList.add('incorrect-choice');
+                            feedbackEl.innerHTML = '❌'; feedbackEl.className = 'feedback-icon incorrect-icon';
+                            qContainer.querySelector(`.verb-option[data-val='${q.a}']`).classList.add('correct-choice');
+                        }
+                    } else {
+                        feedbackEl.innerHTML = '❌'; feedbackEl.className = 'feedback-icon incorrect-icon';
+                    }
+                });
+            } else if (exNum == 2 || exNum == 4) {
+                exData.questions.forEach((q, i) => {
+                    const feedbackEl = document.getElementById(`feedback-${exNum}-${i}`);
+                    let allCorrect = true;
+                    if (Array.isArray(q.a)) {
+                        q.a.forEach((ans, j) => {
+                            const inputEl = document.getElementById(`${exNum}-${i}-${j}`);
+                            if (inputEl.value.toLowerCase().trim() === ans.toLowerCase().trim()) {
+                                inputEl.classList.add('correct');
+                            } else {
+                                inputEl.classList.add('incorrect'); allCorrect = false;
+                            }
+                        });
+                    } else {
+                        const inputEl = document.getElementById(`${exNum}-${i}`);
+                        if (inputEl.value.toLowerCase().trim() === q.a.toLowerCase().trim()) {
+                            inputEl.classList.add('correct');
+                        } else {
+                            inputEl.classList.add('incorrect'); allCorrect = false;
+                        }
+                    }
+                    if (allCorrect) {
+                        feedbackEl.innerHTML = '✔️'; feedbackEl.className = 'feedback-icon correct-icon';
+                    } else {
+                        feedbackEl.innerHTML = '❌'; feedbackEl.className = 'feedback-icon incorrect-icon';
+                    }
+                });
+            } else if (exNum == 3) {
+                exData.answers.forEach((ans, i) => {
+                    const inputEl = document.getElementById(`3-${i}`);
+                    const feedbackEl = document.getElementById(`feedback-3-${i}`);
+                    if (inputEl.value.toLowerCase().trim() === ans.toLowerCase().trim()) {
+                        inputEl.classList.add('correct');
+                        feedbackEl.innerHTML = '✔️'; feedbackEl.className = 'feedback-icon correct-icon';
+                    } else {
+                        inputEl.classList.add('incorrect');
+                        feedbackEl.innerHTML = '❌'; feedbackEl.className = 'feedback-icon incorrect-icon';
+                    }
+                });
+            }
+            
+            updateTotalScore();
+            const checkBtn = container.querySelector('.check-btn');
+            checkBtn.disabled = true;
+            checkBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        }
+
+        function resetExercise(exNum) {
+            const container = document.getElementById(`exercise-container-${exNum}`);
+            container.dataset.checked = 'false';
+            
+            container.querySelectorAll('input[type="text"]').forEach(input => {
+                input.value = '';
+                input.classList.remove('correct', 'incorrect');
+            });
+            container.querySelectorAll('.feedback-icon').forEach(span => {
+                span.innerHTML = '';
+            });
+            container.querySelectorAll('.verb-option').forEach(el => {
+                el.classList.remove('selected', 'correct-choice', 'incorrect-choice');
+            });
+
+            const checkBtn = container.querySelector('.check-btn');
+            checkBtn.disabled = false;
+            checkBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            updateTotalScore();
+        }
+
+        renderAllExercises();
+    </script>
+
+</body>
+</html>

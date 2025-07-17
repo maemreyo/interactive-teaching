@@ -7,6 +7,7 @@ import { AdditionLessonPage } from "./components/AdditionLessonPage";
 import { PracticePage } from "./components/PracticePage";
 import { HomePage } from "./components/HomePage";
 import { Language } from "../shared/types";
+import NotesFloatingButton from "../../../../components/NotesFloatingButton";
 
 type PageType = "home" | "lesson" | "practice";
 
@@ -39,6 +40,9 @@ export default function AdditionApp() {
           {renderPage()}
         </motion.div>
       </AnimatePresence>
+      
+      {/* Notes Tool - Available on all pages */}
+      <NotesFloatingButton unitId="cambridge-unit-3-addition" />
     </main>
   );
 }

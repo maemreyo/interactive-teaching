@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Học Ngữ Pháp: Thì Hiện Tại Tiếp Diễn</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Baloo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fefce8; /* Light yellow background */
+        }
+        .slide-title {
+            font-family: 'Baloo 2', cursive;
+        }
+        .slide-content {
+            min-height: 450px; /* Increased height for more space */
+        }
+        .slide {
+            display: none;
+        }
+        .slide.active {
+            display: block;
+        }
+        .btn-nav {
+            transition: all 0.3s ease;
+        }
+        .btn-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .option-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .option-btn:hover {
+            background-color: #fde047; /* yellow-300 */
+        }
+        .correct {
+            background-color: #4ade80 !important; /* green-400 */
+            color: white;
+            border-color: #22c55e; /* green-600 */
+        }
+        .incorrect {
+            background-color: #f87171 !important; /* red-400 */
+            color: white;
+            border-color: #ef4444; /* red-500 */
+        }
+        .progress-bar-fill {
+            transition: width 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+
+    <div id="grammar-slides" class="w-full max-w-4xl bg-white rounded-2xl shadow-xl overflow-hidden border-4 border-green-200">
+        
+        <!-- Header with Progress Bar -->
+        <div class="p-4 bg-green-50 border-b-2 border-green-100">
+            <h1 class="text-xl md:text-2xl font-bold text-green-800 text-center slide-title">Bài học: Thì Hiện Tại Tiếp Diễn</h1>
+            <div class="mt-3 bg-green-200 rounded-full h-4 w-full">
+                <div id="progress-bar" class="bg-green-500 h-4 rounded-full progress-bar-fill" style="width: 0%;"></div>
+            </div>
+        </div>
+
+        <!-- Slides Container -->
+        <div class="p-6 md:p-8 slide-content">
+
+            <!-- Slide 1: Introduction -->
+            <div class="slide active text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-green-600 slide-title mb-4">Thì Hiện Tại Tiếp Diễn</h2>
+                <p class="text-gray-600 text-lg mb-6">Hành động đang diễn ra ngay lúc này? Dùng thì này nhé!</p>
+                <img src="https://placehold.co/500x250/dcfce7/14532d?text=What's+happening?" alt="Hình ảnh minh họa học tập" class="mx-auto rounded-lg shadow-md">
+            </div>
+
+            <!-- Slide 2: Usage -->
+            <div class="slide">
+                <h3 class="text-2xl font-bold text-green-700 slide-title mb-4">1. Khi nào chúng ta dùng?</h3>
+                <div class="bg-sky-100 border-l-4 border-sky-500 text-sky-800 p-4 rounded-lg">
+                    <p class="font-semibold">Diễn tả một hành động đang xảy ra tại thời điểm nói.</p>
+                    <p class="mt-2 text-sm">Ví dụ: I <span class="font-bold">am doing</span> my homework now. (Bây giờ tôi đang làm bài tập.)</p>
+                </div>
+                <div class="bg-violet-100 border-l-4 border-violet-500 text-violet-800 p-4 rounded-lg mt-4">
+                    <p class="font-semibold">Dùng sau câu mệnh lệnh, đề nghị.</p>
+                    <p class="mt-2 text-sm">Ví dụ: Look! The baby <span class="font-bold">is sleeping</span>. (Nhìn kìa! Em bé đang ngủ.)</p>
+                </div>
+            </div>
+
+            <!-- Slide 3: Affirmative Form -->
+            <div class="slide">
+                <h3 class="text-2xl font-bold text-green-700 slide-title mb-4 text-center">2. Dạng Khẳng Định (+)</h3>
+                <div class="bg-gray-100 p-6 rounded-xl shadow-sm text-center">
+                    <p class="text-5xl text-rose-500 font-bold font-mono">S + am/is/are + V-ing</p>
+                    <hr class="my-4">
+                    <div class="space-y-3 text-left text-xl">
+                        <p><span class="font-bold text-blue-700 w-12 inline-block">I</span> <span class="font-mono text-gray-500">+</span> <span class="font-bold text-red-500">am</span> <span class="font-mono text-gray-500">+</span> V-ing</p>
+                        <p><span class="font-bold text-violet-700 w-12 inline-block">He/She/It</span> <span class="font-mono text-gray-500">+</span> <span class="font-bold text-red-500">is</span> <span class="font-mono text-gray-500">+</span> V-ing</p>
+                        <p><span class="font-bold text-orange-700 w-12 inline-block">You/We/They</span> <span class="font-mono text-gray-500">+</span> <span class="font-bold text-red-500">are</span> <span class="font-mono text-gray-500">+</span> V-ing</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 4: Negative Form -->
+            <div class="slide">
+                <h3 class="text-2xl font-bold text-green-700 slide-title mb-4 text-center">3. Dạng Phủ Định (-)</h3>
+                <div class="bg-gray-100 p-6 rounded-xl shadow-sm text-center">
+                    <p class="text-4xl text-rose-500 font-bold font-mono">S + am/is/are + not + V-ing</p>
+                    <hr class="my-4">
+                    <div class="space-y-2 text-left text-lg">
+                        <p>Ví dụ: They <span class="font-bold">are not (aren't) playing</span> badminton now.</p>
+                        <p>Ví dụ: She <span class="font-bold">is not (isn't) playing</span> badminton now.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 5: Interrogative Form -->
+            <div class="slide">
+                <h3 class="text-2xl font-bold text-green-700 slide-title mb-4 text-center">4. Dạng Nghi Vấn (?)</h3>
+                <div class="bg-gray-100 p-6 rounded-xl shadow-sm text-center">
+                    <p class="text-4xl text-rose-500 font-bold font-mono">Am/Is/Are + S + V-ing?</p>
+                    <hr class="my-4">
+                    <p class="text-left text-lg">Ví dụ: <span class="font-bold">Are</span> you <span class="font-bold">having</span> breakfast?</p>
+                    <p class="mt-4 font-bold text-gray-700">Trả lời: Yes, S + am/is/are. / No, S + am/is/are + not.</p>
+                </div>
+            </div>
+
+            <!-- Slide 6: Spelling Rules for -ing -->
+            <div class="slide">
+                <h3 class="text-2xl font-bold text-green-700 slide-title mb-4 text-center">5. Quy tắc thêm đuôi "-ing"</h3>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                    <div class="bg-blue-50 border-2 border-blue-200 p-4 rounded-lg shadow-sm">
+                        <p class="font-bold text-blue-800 text-lg text-center">Tận cùng là "e"</p>
+                        <p class="text-center text-2xl font-bold text-blue-600 my-3">Bỏ "e" → thêm "ing"</p>
+                        <p class="text-center text-gray-600 mt-2">writ<span class="text-red-500 font-bold">e</span> <span class="font-bold">→</span> writ<span class="text-red-500 font-bold">ing</span></p>
+                    </div>
+                    <div class="bg-purple-50 border-2 border-purple-200 p-4 rounded-lg shadow-sm">
+                        <p class="font-bold text-purple-800 text-lg text-center">1 nguyên âm + 1 phụ âm</p>
+                        <p class="text-center text-2xl font-bold text-purple-600 my-3">Gấp đôi phụ âm → thêm "ing"</p>
+                        <p class="text-center text-gray-600 mt-2">si<span class="text-red-500 font-bold">t</span> <span class="font-bold">→</span> sit<span class="text-red-500 font-bold">ting</span></p>
+                    </div>
+                     <div class="bg-yellow-50 border-2 border-yellow-200 p-4 rounded-lg shadow-sm">
+                        <p class="font-bold text-yellow-800 text-lg text-center">Tận cùng là "ie"</p>
+                        <p class="text-center text-2xl font-bold text-yellow-600 my-3">Đổi "ie" thành "y" → thêm "ing"</p>
+                        <p class="text-center text-gray-600 mt-2">l<span class="text-red-500 font-bold">ie</span> <span class="font-bold">→</span> l<span class="text-red-500 font-bold">ying</span></p>
+                    </div>
+                    <div class="bg-gray-50 border-2 border-gray-200 p-4 rounded-lg shadow-sm flex flex-col justify-center items-center">
+                        <p class="font-bold text-gray-800 text-lg text-center">Các trường hợp còn lại</p>
+                        <p class="text-center text-4xl font-bold text-gray-600 my-3">→ Thêm "ing"</p>
+                        <p class="text-center text-gray-600 mt-2">cook <span class="font-bold">→</span> cook<span class="text-red-500 font-bold">ing</span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 7: Signal Words -->
+            <div class="slide">
+                <h3 class="text-2xl font-bold text-green-700 slide-title mb-4">6. Dấu hiệu nhận biết</h3>
+                <p class="mb-4 text-gray-600">Tìm các "từ khóa" này để biết câu đang ở thì Hiện tại tiếp diễn nhé:</p>
+                <div class="flex flex-wrap gap-3 justify-center">
+                    <span class="bg-yellow-200 text-yellow-800 font-medium px-4 py-2 rounded-full">now</span>
+                    <span class="bg-yellow-200 text-yellow-800 font-medium px-4 py-2 rounded-full">right now</span>
+                    <span class="bg-yellow-200 text-yellow-800 font-medium px-4 py-2 rounded-full">at the moment</span>
+                    <span class="bg-yellow-200 text-yellow-800 font-medium px-4 py-2 rounded-full">at present</span>
+                    <span class="bg-red-200 text-red-800 font-medium px-4 py-2 rounded-full">Look!</span>
+                    <span class="bg-red-200 text-red-800 font-medium px-4 py-2 rounded-full">Listen!</span>
+                    <span class="bg-red-200 text-red-800 font-medium px-4 py-2 rounded-full">Watch out!</span>
+                </div>
+            </div>
+            
+            <!-- Slide 8: How-to Guide -->
+            <div class="slide">
+                <h3 class="text-2xl font-bold text-green-700 slide-title mb-4 text-center">7. Công Thức Làm Bài Tập</h3>
+                <div class="space-y-4">
+                    <div class="flex items-start space-x-4">
+                        <div class="bg-blue-500 text-white rounded-full h-10 w-10 flex-shrink-0 flex items-center justify-center font-bold text-xl">1</div>
+                        <div>
+                            <h4 class="font-bold text-lg text-blue-800">Tìm Dấu Hiệu</h4>
+                            <p class="text-gray-600">Tìm các từ như: <span class="font-semibold">now, at the moment, Look!, Listen!...</span></p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="bg-green-500 text-white rounded-full h-10 w-10 flex-shrink-0 flex items-center justify-center font-bold text-xl">2</div>
+                        <div>
+                            <h4 class="font-bold text-lg text-green-800">Xác Định Chủ Ngữ (S)</h4>
+                            <p class="text-gray-600">Là <span class="font-bold">I</span>, <span class="font-bold">He/She/It</span>, hay <span class="font-bold">You/We/They</span>?</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="bg-yellow-500 text-white rounded-full h-10 w-10 flex-shrink-0 flex items-center justify-center font-bold text-xl">3</div>
+                        <div>
+                            <h4 class="font-bold text-lg text-yellow-800">Chọn "to be" đúng</h4>
+                            <p class="text-gray-600">I <span class="font-bold">→ am</span>, He/She/It <span class="font-bold">→ is</span>, You/We/They <span class="font-bold">→ are</span>.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="bg-red-500 text-white rounded-full h-10 w-10 flex-shrink-0 flex items-center justify-center font-bold text-xl">4</div>
+                        <div>
+                            <h4 class="font-bold text-lg text-red-800">Thêm "-ing" vào động từ</h4>
+                            <p class="text-gray-600">Nhớ các quy tắc đặc biệt (bỏ "e", gấp đôi phụ âm...).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 9: Quiz 1 -->
+            <div class="slide">
+                <h3 class="text-2xl font-bold text-green-700 slide-title mb-4">Luyện tập nào!</h3>
+                <div id="quiz1" class="bg-gray-50 p-5 rounded-lg">
+                    <p class="font-semibold text-lg mb-4">Listen! Someone _____ at the door.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <button data-correct="false" class="option-btn w-full p-4 border-2 border-gray-300 rounded-lg text-left text-lg">knock</button>
+                        <button data-correct="false" class="option-btn w-full p-4 border-2 border-gray-300 rounded-lg text-left text-lg">knocks</button>
+                        <button data-correct="true" class="option-btn w-full p-4 border-2 border-gray-300 rounded-lg text-left text-lg">is knocking</button>
+                        <button data-correct="false" class="option-btn w-full p-4 border-2 border-gray-300 rounded-lg text-left text-lg">are knocking</button>
+                    </div>
+                    <p id="feedback1" class="mt-4 font-bold text-center"></p>
+                </div>
+            </div>
+            
+            <!-- Slide 10: Quiz 2 -->
+            <div class="slide">
+                <h3 class="text-2xl font-bold text-green-700 slide-title mb-4">Thử thách tiếp theo!</h3>
+                <div id="quiz2" class="bg-gray-50 p-5 rounded-lg">
+                    <p class="font-semibold text-lg mb-4">Điền dạng đúng của động từ: <br> They (play) _____ badminton now.</p>
+                    <input type="text" id="answer2" class="w-full p-3 border-2 border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Nhập câu trả lời...">
+                    <button id="check-btn2" class="mt-4 w-full bg-green-500 text-white font-bold py-3 rounded-lg hover:bg-green-600 transition-colors">Kiểm tra</button>
+                    <p id="feedback2" class="mt-4 font-bold text-center"></p>
+                </div>
+            </div>
+
+            <!-- Slide 11: Summary -->
+            <div class="slide text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-500 slide-title mb-4">Tuyệt vời!</h2>
+                <p class="text-gray-600 text-lg mb-6">Em đã nắm vững Thì Hiện Tại Tiếp Diễn rồi đấy. Hãy tiếp tục phát huy nhé!</p>
+                <img src="https://placehold.co/400x200/ecfdf5/052e16?text=Great+Job!" alt="Hình ảnh chúc mừng" class="mx-auto rounded-lg shadow-md">
+            </div>
+
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex justify-between p-4 bg-gray-50 border-t-2 border-gray-100">
+            <button id="prev-btn" class="btn-nav bg-gray-300 text-gray-700 font-bold py-2 px-6 rounded-lg shadow-md hover:bg-gray-400" disabled>
+                &larr; Quay lại
+            </button>
+            <button id="next-btn" class="btn-nav bg-green-500 text-white font-bold py-2 px-6 rounded-lg shadow-md hover:bg-green-600">
+                Tiếp theo &rarr;
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get all necessary elements
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const progressBar = document.getElementById('progress-bar');
+
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+
+            // Function to update the view (slides, buttons, progress bar)
+            function updateView() {
+                // Hide all slides
+                slides.forEach(slide => slide.classList.remove('active'));
+                // Show the current slide
+                slides[currentSlide].classList.add('active');
+
+                // Update progress bar
+                const progressPercentage = ((currentSlide + 1) / totalSlides) * 100;
+                progressBar.style.width = `${progressPercentage}%`;
+
+                // Update button states
+                prevBtn.disabled = currentSlide === 0;
+                
+                if (currentSlide === 0) {
+                    prevBtn.classList.add('bg-gray-300', 'cursor-not-allowed');
+                    prevBtn.classList.remove('bg-green-500', 'text-white');
+                } else {
+                    prevBtn.classList.remove('bg-gray-300', 'cursor-not-allowed');
+                    prevBtn.classList.add('bg-green-500', 'text-white');
+                }
+
+                if (currentSlide === totalSlides - 1) {
+                    nextBtn.textContent = 'Hoàn thành';
+                    nextBtn.classList.add('bg-blue-500', 'hover:bg-blue-600');
+                    nextBtn.classList.remove('bg-green-500', 'hover:bg-green-600');
+                } else {
+                    nextBtn.textContent = 'Tiếp theo →';
+                    nextBtn.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+                    nextBtn.classList.add('bg-green-500', 'hover:bg-green-600');
+                }
+            }
+
+            // Event listener for the "Next" button
+            nextBtn.addEventListener('click', () => {
+                if (currentSlide < totalSlides - 1) {
+                    currentSlide++;
+                    updateView();
+                }
+            });
+
+            // Event listener for the "Previous" button
+            prevBtn.addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    updateView();
+                }
+            });
+
+            // --- Quiz 1 Logic ---
+            const quiz1 = document.getElementById('quiz1');
+            const options1 = quiz1.querySelectorAll('.option-btn');
+            const feedback1 = document.getElementById('feedback1');
+            let quiz1Answered = false;
+
+            options1.forEach(button => {
+                button.addEventListener('click', () => {
+                    if (quiz1Answered) return;
+                    quiz1Answered = true;
+                    const isCorrect = button.getAttribute('data-correct') === 'true';
+                    if (isCorrect) {
+                        button.classList.add('correct');
+                        feedback1.textContent = 'Chính xác! Giỏi quá!';
+                        feedback1.className = 'mt-4 font-bold text-center text-green-600';
+                    } else {
+                        button.classList.add('incorrect');
+                        feedback1.textContent = 'Chưa đúng rồi. Cố gắng lại nhé!';
+                        feedback1.className = 'mt-4 font-bold text-center text-red-600';
+                        quiz1.querySelector('[data-correct="true"]').classList.add('correct');
+                    }
+                });
+            });
+            
+            // --- Quiz 2 Logic ---
+            const checkBtn2 = document.getElementById('check-btn2');
+            const answerInput2 = document.getElementById('answer2');
+            const feedback2 = document.getElementById('feedback2');
+            const correctAnswers2 = ["are playing"];
+            let quiz2Answered = false;
+
+            checkBtn2.addEventListener('click', () => {
+                if(quiz2Answered) return;
+                
+                const userAnswer = answerInput2.value.trim().toLowerCase();
+                
+                if (correctAnswers2.includes(userAnswer)) {
+                    feedback2.textContent = 'Tuyệt vời! Em đã trả lời đúng!';
+                    feedback2.className = 'mt-4 font-bold text-center text-green-600';
+                    answerInput2.classList.add('border-green-500', 'ring-green-500');
+                } else {
+                    feedback2.textContent = "Sai rồi! Đáp án đúng là \"are playing\".";
+                    feedback2.className = 'mt-4 font-bold text-center text-red-600';
+                    answerInput2.classList.add('border-red-500', 'ring-red-500');
+                }
+                quiz2Answered = true;
+                checkBtn2.disabled = true;
+                checkBtn2.classList.add('bg-gray-400', 'cursor-not-allowed');
+            });
+
+            // Initialize the first slide
+            updateView();
+        });
+    </script>
+</body>
+</html>

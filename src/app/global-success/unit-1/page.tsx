@@ -7,13 +7,17 @@ import { MatchingGamePage } from "./components/MatchingGamePage";
 import { HomePage } from "./components/HomePage";
 import { QuizGamePage } from "./components/QuizGamePage";
 import { QuizHistory } from "./components/QuizHistory";
+import { GrammarLessonPage } from "./components/GrammarLessonPage";
 import { PageType } from "./components/types";
+import NotesFloatingButton from "../../../components/NotesFloatingButton";
 
 export default function App() {
   const [page, setPage] = useState<PageType>("home"); // 'home', 'flashcards', 'game', 'quiz'
 
   const renderPage = () => {
     switch (page) {
+      case "grammar":
+        return <GrammarLessonPage setPage={setPage} />;
       case "flashcards":
         return <FlashcardsPage setPage={setPage} />;
       case "game":
@@ -41,6 +45,9 @@ export default function App() {
           {renderPage()}
         </motion.div>
       </AnimatePresence>
+      
+      {/* Notes Tool - Available on all pages */}
+      <NotesFloatingButton unitId="global-success-unit-1" />
     </main>
   );
 }

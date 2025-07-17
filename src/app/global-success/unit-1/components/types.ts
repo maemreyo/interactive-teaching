@@ -1,4 +1,4 @@
-export type PageType = "home" | "flashcards" | "game" | "quiz" | "history";
+export type PageType = "home" | "flashcards" | "game" | "quiz" | "history" | "grammar";
 
 export interface SetPageProps {
   setPage: (page: PageType) => void;
@@ -14,4 +14,10 @@ export interface GameCard {
   type: "word" | "definition";
   content: string;
   isFlipped: boolean;
+}
+
+export interface GrammarSlide {
+  id: number;
+  title: string;
+  component: React.ComponentType;
 }

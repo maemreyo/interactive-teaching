@@ -9,6 +9,7 @@ import { Language } from "./shared/types";
 import { LanguageToggle } from "./shared/LanguageToggle";
 import { Home, Plus, Minus, BookOpen, ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import NotesFloatingButton from "../../../components/NotesFloatingButton";
 
 export default function Unit3HomePage() {
   const [language, setLanguage] = useState<Language>("en");
@@ -234,6 +235,9 @@ export default function Unit3HomePage() {
           </div>
         </motion.footer>
       </div>
+      
+      {/* Notes Tool - Available on all pages */}
+      <NotesFloatingButton unitId="cambridge-unit-3" />
     </div>
   );
 }
