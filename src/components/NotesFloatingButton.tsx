@@ -1,12 +1,13 @@
 // src/components/NotesFloatingButton.tsx
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { StickyNote } from 'lucide-react';
 import NotesTool from './NotesTool';
-import VocabularyTooltip from './VocabularyTooltip';
-import { useNotes } from '../hooks/useNotes';
+import EnhancedVocabularyTooltip from './EnhancedVocabularyTooltip';
+import ParentReportGenerator from './ParentReportGenerator';
+import { useNotes, Vocabulary } from '../hooks/useNotes';
 
 interface NotesFloatingButtonProps {
   unitId: string;
@@ -14,7 +15,47 @@ interface NotesFloatingButtonProps {
 
 const NotesFloatingButton: React.FC<NotesFloatingButtonProps> = ({ unitId }) => {
   const [isNotesOpen, setIsNotesOpen] = useState(false);
-  const { vocabulary, tooltipsEnabled } = useNotes(unitId);
+  const [isReportOpen, setIsReportOpen] = useState(false);
+  const { 
+    notes,
+    vocabulary, 
+    vocabularyProgress,
+    sessions,
+    settings,
+    teacherInfo,
+    updateVocabularyProgress,
+    getVocabularyDueForReview,
+  } = useNotes(unitId);
+  const [vocabularyDueForReview, setVocabularyDueForReview] = useState<Vocabulary[]>([]);
+  
+  useEffect(() => {
+    const loadDueVocabulary = async () => {
+      try {
+        const dueVocab = await getVocabularyDueForReview();
+        setVocabularyDueForReview(dueVocab);
+      } catch (error) {
+        console.error('Error loading due vocabulary:', error);
+        setVocabularyDueForReview([]); // Fallback to empty array
+      }
+    };
+    
+    // Debounce the load function to prevent rapid re-loads
+    const timeoutId = setTimeout(loadDueVocabulary, 300);
+    
+    return () => clearTimeout(timeoutId);
+  }, [vocabulary, vocabularyProgress, getVocabularyDueForReview]);
+  
+  const handleVocabularyInteraction = async (vocabularyId: string, isCorrect: boolean, timeSpent: number) => {
+    await updateVocabularyProgress(vocabularyId, isCorrect, timeSpent);
+    // Refresh due vocabulary list
+    const dueVocab = await getVocabularyDueForReview();
+    setVocabularyDueForReview(dueVocab);
+  };
+  
+  const handleDifficultyFeedback = (vocabularyId: string, difficulty: 'easy' | 'medium' | 'hard') => {
+    // Handle difficulty feedback - could be used for adaptive learning
+    console.log(`Vocabulary ${vocabularyId} difficulty: ${difficulty}`);
+  };
 
   return (
     <>
@@ -37,10 +78,16 @@ const NotesFloatingButton: React.FC<NotesFloatingButtonProps> = ({ unitId }) => 
         </div>
       </motion.button>
 
-      {/* Vocabulary Tooltips */}
-      <VocabularyTooltip
+      {/* Enhanced Vocabulary Tooltips */}
+      <EnhancedVocabularyTooltip
         vocabulary={vocabulary}
-        isEnabled={tooltipsEnabled && !isNotesOpen}
+        isEnabled={settings.tooltipsEnabled && !isNotesOpen && !isReportOpen}
+        spacedRepetitionEnabled={settings.spacedRepetitionEnabled}
+        difficultyAdaptation={settings.difficultyAdaptation}
+        eyeBlinkSensitivity={settings.eyeBlinkSensitivity}
+        onVocabularyInteraction={handleVocabularyInteraction}
+        onDifficultyFeedback={handleDifficultyFeedback}
+        vocabularyDueForReview={vocabularyDueForReview}
       />
 
       {/* Notes Tool Modal */}
@@ -48,6 +95,19 @@ const NotesFloatingButton: React.FC<NotesFloatingButtonProps> = ({ unitId }) => 
         unitId={unitId}
         isOpen={isNotesOpen}
         onClose={() => setIsNotesOpen(false)}
+        onOpenReport={() => setIsReportOpen(true)}
+      />
+      
+      {/* Parent Report Generator */}
+      <ParentReportGenerator
+        unitId={unitId}
+        notes={notes}
+        vocabulary={vocabulary}
+        vocabularyProgress={vocabularyProgress}
+        sessions={sessions}
+        teacherInfo={teacherInfo}
+        isOpen={isReportOpen}
+        onClose={() => setIsReportOpen(false)}
       />
     </>
   );

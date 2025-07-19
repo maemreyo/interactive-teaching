@@ -13,7 +13,8 @@ import {
   X,
   Save,
   AlertTriangle,
-  Sparkles
+  Sparkles,
+  FileText
 } from 'lucide-react';
 import { useNotes, Note, Vocabulary } from '../hooks/useNotes';
 import AIAssistant from './AIAssistant';
@@ -23,13 +24,15 @@ interface NotesToolProps {
   unitId: string;
   isOpen: boolean;
   onClose: () => void;
+  onOpenReport?: () => void;
 }
 
-const NotesTool: React.FC<NotesToolProps> = ({ unitId, isOpen, onClose }) => {
+const NotesTool: React.FC<NotesToolProps> = ({ unitId, isOpen, onClose, onOpenReport }) => {
   const {
     notes,
     vocabulary,
     tooltipsEnabled,
+    teacherInfo,
     isLoading,
     addNote,
     updateNote,
@@ -149,6 +152,15 @@ const NotesTool: React.FC<NotesToolProps> = ({ unitId, isOpen, onClose }) => {
               >
                 <Download className="w-5 h-5" />
               </button>
+              {onOpenReport && (
+                <button
+                  onClick={onOpenReport}
+                  className="p-2 text-gray-500 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
+                  title="Generate parent report"
+                >
+                  <FileText className="w-5 h-5" />
+                </button>
+              )}
               <button
                 onClick={() => setShowClearConfirm(true)}
                 className="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
@@ -218,6 +230,7 @@ const NotesTool: React.FC<NotesToolProps> = ({ unitId, isOpen, onClose }) => {
                   unitId={unitId}
                   notes={notes}
                   vocabulary={vocabulary}
+                  teacherInfo={teacherInfo}
                 />
               </div>
             ) : activeTab === 'notes' ? (
