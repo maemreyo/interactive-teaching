@@ -163,7 +163,7 @@ export const GrammarLessonPage: React.FC<SetPageProps> = ({ setPage }) => {
 
             {/* Section indicators */}
             <div className="flex space-x-4">
-              {['Present Simple', 'Present Continuous', 'So sánh', 'Bài tập'].map((section, sectionIndex) => {
+              {['Present Simple', 'Present Continuous', 'So sánh', 'Bài tập'].map((section) => {
                 const sectionSlides = slides.filter(slide => slide.section === section);
                 const isCurrentSection = slides[currentSlide].section === section;
                 const sectionStartIndex = slides.findIndex(slide => slide.section === section);

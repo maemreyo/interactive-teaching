@@ -1,7 +1,7 @@
 // pdf-to-learn/src/app/global-success/unit-1/components/TenseComparisonSlides.tsx
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Clock, Zap, Users, User, AlertTriangle, CheckCircle, XCircle } from 'lucide-react';
+import { Clock, Zap, AlertTriangle, CheckCircle, XCircle } from 'lucide-react';
 
 // Slide 1: Introduction
 export const IntroductionSlide: React.FC = () => {

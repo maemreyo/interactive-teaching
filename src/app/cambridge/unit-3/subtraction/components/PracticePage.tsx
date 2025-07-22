@@ -182,7 +182,7 @@ export const PracticePage = ({ setPage, language, onLanguageChange }: PracticePa
 
   useEffect(() => {
     generateNewProblem();
-  }, []);
+  }, [generateNewProblem]);
 
   if (!currentProblem) {
     return (

@@ -2,7 +2,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Sparkles, 
   Mail, 
@@ -18,6 +17,7 @@ import {
 } from 'lucide-react';
 import { geminiService, LessonSummary } from '../services/geminiService';
 import { Note, Vocabulary, TeacherInfo } from '../hooks/useNotes';
+import { motion } from 'framer-motion';
 
 interface AIAssistantProps {
   unitId: string;
@@ -202,7 +202,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ unitId, notes, vocabulary, te
             {tabs.map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
+                onClick={() => setActiveTab(tab.id as 'feedback' | 'vocabulary' | 'suggestions' | 'email')}
                 className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-colors ${
                   activeTab === tab.id
                     ? 'bg-purple-500 text-white'

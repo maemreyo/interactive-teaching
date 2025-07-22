@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // src/services/indexedDBService.ts
 import { Note, Vocabulary, TeacherInfo } from '../hooks/useNotes';
 

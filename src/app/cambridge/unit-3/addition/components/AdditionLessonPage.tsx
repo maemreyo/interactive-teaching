@@ -13,7 +13,6 @@ import { additionSteps } from "./additionSteps";
 import { 
   ArrowLeft, 
   ArrowRight, 
-  Home, 
   Play, 
   Pause, 
   RotateCcw,
@@ -33,7 +32,6 @@ export const AdditionLessonPage = ({ setPage, language, onLanguageChange }: Addi
   const [currentStep, setCurrentStep] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const t = translations[language];
   const currentStepData = additionSteps[currentStep];
@@ -226,7 +224,7 @@ export const AdditionLessonPage = ({ setPage, language, onLanguageChange }: Addi
                 </p>
                 <div className="bg-blue-50 rounded-lg p-4 border-l-4 border-blue-500">
                   <p className="text-lg text-gray-700 italic">
-                    "{currentStepData.explanation[language]}"
+                    &quot;{currentStepData.explanation[language]}&quot;
                   </p>
                 </div>
               </CardContent>

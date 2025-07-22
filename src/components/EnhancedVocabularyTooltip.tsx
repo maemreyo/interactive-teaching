@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { BookOpen, X, Volume2, Eye, Brain, Star, ChevronRight } from 'lucide-react';
+import { BookOpen, X, Volume2, Eye, Brain, Star } from 'lucide-react';
 import { Vocabulary } from '../hooks/useNotes';
 
 interface EnhancedVocabularyTooltipProps {
@@ -46,7 +46,6 @@ const EnhancedVocabularyTooltip: React.FC<EnhancedVocabularyTooltipProps> = ({
     attentionScore: 100
   });
   const [showDifficultyFeedback, setShowDifficultyFeedback] = useState(false);
-  const [userFeedback, setUserFeedback] = useState<'easy' | 'medium' | 'hard' | null>(null);
   const [progress, setProgress] = useState(0);
   const [isLearned, setIsLearned] = useState(false);
   const [streak, setStreak] = useState(0);
@@ -208,7 +207,7 @@ const EnhancedVocabularyTooltip: React.FC<EnhancedVocabularyTooltipProps> = ({
         cancelAnimationFrame(animationFrame);
       }
     };
-  }, [isEnabled, isVisible, eyeBlinkSensitivity]);
+  }, [isEnabled, isVisible, eyeBlinkSensitivity, eyeBlinkState.isBlinking, eyeBlinkState.lastBlinkTime]);
 
   // Smart vocabulary selection with spaced repetition
   const selectVocabulary = (): Vocabulary | null => {
@@ -262,7 +261,7 @@ const EnhancedVocabularyTooltip: React.FC<EnhancedVocabularyTooltipProps> = ({
       setShowTime(calculateDisplayTime(selectedWord));
       setProgress(0);
       setIsLearned(false);
-      setUserFeedback(null);
+      // setUserFeedback(null);
       setShowDifficultyFeedback(false);
 
       // Smart positioning to avoid edges and overlap
@@ -306,6 +305,7 @@ const EnhancedVocabularyTooltip: React.FC<EnhancedVocabularyTooltipProps> = ({
       return baseInterval + Math.random() * 10000; // Add randomness
     };
 
+    // eslint-disable-next-line prefer-const
     tooltipInterval = setInterval(() => {
       if (!isVisible) {
         showTooltip();
@@ -328,7 +328,7 @@ const EnhancedVocabularyTooltip: React.FC<EnhancedVocabularyTooltipProps> = ({
   };
 
   const handleDifficultyFeedback = (difficulty: 'easy' | 'medium' | 'hard') => {
-    setUserFeedback(difficulty);
+    // setUserFeedback(difficulty);
     if (currentWord) {
       onDifficultyFeedback(currentWord.id, difficulty);
       const timeSpent = Date.now() - interactionStartTime;
@@ -457,7 +457,7 @@ const EnhancedVocabularyTooltip: React.FC<EnhancedVocabularyTooltipProps> = ({
             <div className="bg-white/10 rounded-lg p-3 mb-3">
               <p className="text-xs text-white/80 mb-1">Example:</p>
               <p className="text-sm italic text-white/95">
-                "{currentWord.example}"
+                &quot;{currentWord.example}&quot;
               </p>
             </div>
           )}

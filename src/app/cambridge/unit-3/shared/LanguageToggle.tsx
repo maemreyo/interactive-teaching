@@ -3,7 +3,6 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import { Language } from "./types";
 import { Globe } from "lucide-react";
 

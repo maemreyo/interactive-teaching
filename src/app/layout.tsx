@@ -28,6 +28,8 @@ export const metadata: Metadata = {
   description: "Engage with dynamic content through quizzes, flashcards, and personalized learning paths designed for effective knowledge retention.",
 };
 
+import { Toaster } from "@/components/ui/sonner";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -40,6 +42,7 @@ export default function RootLayout({
       >
         {children}
         <Analytics />
+        <Toaster />
       </body>
     </html>
   );

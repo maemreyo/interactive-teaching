@@ -290,7 +290,6 @@ export const QuizGamePage = ({ setPage }: SetPageProps) => {
     return <div className="flex justify-center items-center min-h-screen">Loading Quiz...</div>;
   }
 
-  const progressValue = (timeLeft / calculateTimeForQuestion()) * 100;
   const timePercentage = (timeLeft / calculateTimeForQuestion()) * 100;
 
   return (

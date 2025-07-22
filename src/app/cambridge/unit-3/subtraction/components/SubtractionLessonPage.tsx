@@ -1,7 +1,7 @@
 // src/app/cambridge/unit-3/subtraction/components/SubtractionLessonPage.tsx
 "use client";
 
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -13,7 +13,6 @@ import { subtractionSteps } from "./subtractionSteps";
 import { 
   ArrowLeft, 
   ArrowRight, 
-  Home, 
   Play, 
   Pause, 
   RotateCcw,

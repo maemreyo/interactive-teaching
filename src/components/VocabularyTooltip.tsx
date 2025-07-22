@@ -149,7 +149,7 @@ const VocabularyTooltip: React.FC<VocabularyTooltipProps> = ({ vocabulary, isEna
             <div className="bg-white/10 rounded-lg p-3 mb-3">
               <p className="text-xs text-white/80 mb-1">Example:</p>
               <p className="text-sm italic text-white/95">
-                "{currentWord.example}"
+                &quot;{currentWord.example}&quot;
               </p>
             </div>
           )}

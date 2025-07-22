@@ -47,7 +47,7 @@ export default function NotesDemoPage() {
             </li>
             <li className="flex items-start">
               <span className="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">2</span>
-              Switch between "Notes" and "Vocabulary" tabs
+              Switch between &quot;Notes&quot; and &quot;Vocabulary&quot; tabs
             </li>
             <li className="flex items-start">
               <span className="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">3</span>
@@ -66,7 +66,7 @@ export default function NotesDemoPage() {
 
         <div className="mt-8 text-center">
           <p className="text-gray-500 text-lg">
-            👆 Try the floating button now! This demo uses unit ID: "demo-unit"
+            👆 Try the floating button now! This demo uses unit ID: &quot;demo-unit&quot;
           </p>
         </div>
       </div>

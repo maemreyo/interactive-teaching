@@ -118,6 +118,24 @@ export const HomePage = ({ setPage }: SetPageProps) => (
             </div>
           </CardContent>
         </Card>
+        
+        <Link href="/grammar/s-es-practice" passHref>
+          <Card
+            className="p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer bg-gradient-to-br from-pink-50 to-rose-50 border-2 border-pink-200"
+          >
+            <CardHeader>
+              <CardTitle className="text-3xl text-pink-700 mb-4">✍️ S/ES Practice Game</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-lg text-gray-700 mb-4">Luyện tập thêm &apos;s&apos; và &apos;es&apos; vào động từ theo 4 quy tắc ngữ pháp.</p>
+              <div className="flex flex-wrap gap-2">
+                <span className="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm">Grammar</span>
+                <span className="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm">Practice</span>
+                <span className="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm">Spelling</span>
+              </div>
+            </CardContent>
+          </Card>
+        </Link>
       </div>
     </motion.div>
   </div>

@@ -1,7 +1,7 @@
 // pdf-to-learn/src/app/global-success/unit-1/components/ExerciseSlide.tsx
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useCallback } from 'react';
 import { CheckCircle, XCircle, RotateCcw, Trophy } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface ExerciseData {
   ex1: {
@@ -123,7 +123,7 @@ export const ExerciseSlide: React.FC = () => {
     }
   };
 
-  const calculateScore = () => {
+  const calculateScore = useCallback(() => {
     let score = 0;
     
     // Exercise 1
@@ -189,16 +189,16 @@ export const ExerciseSlide: React.FC = () => {
     }
 
     return score;
-  };
+  }, [checkedExercises, selectedAnswers, inputAnswers]);
 
   useEffect(() => {
     setTotalScore(calculateScore());
-  }, [checkedExercises, selectedAnswers, inputAnswers]);
+  }, [calculateScore]);
 
   const renderFeedback = (questionId: string, correctAnswer: string | string[], isChecked: boolean) => {
     if (!isChecked) return null;
 
-    let isCorrect = false;
+    let isCorrect: string | boolean = false;
     if (questionId.startsWith('1-')) {
       const selected = selectedAnswers[questionId];
       isCorrect = selected && selected.toLowerCase().trim() === (correctAnswer as string).toLowerCase().trim();
