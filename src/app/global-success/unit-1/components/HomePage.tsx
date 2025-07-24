@@ -86,9 +86,9 @@ export const HomePage = ({ setPage }: SetPageProps) => (
                 <div className="text-green-700 font-semibold text-sm">Bước 2: Chi tiết</div>
                 <div className="text-xs text-green-600">✅ Hoàn thành</div>
               </div>
-              <div className="bg-gray-100 rounded-lg p-3 text-center">
-                <div className="text-gray-600 font-semibold text-sm">Bước 3: /æ/ & /eɪ/</div>
-                <div className="text-xs text-gray-500">🚧 Sắp ra mắt</div>
+              <div className="bg-green-100 rounded-lg p-3 text-center">
+                <div className="text-green-700 font-semibold text-sm">Bước 3: Game</div>
+                <div className="text-xs text-green-600">✅ Hoàn thành</div>
               </div>
               <div className="bg-gray-100 rounded-lg p-3 text-center">
                 <div className="text-gray-600 font-semibold text-sm">+ 3 bước nữa</div>

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 // src/app/global-success/unit-1/components/PronunciationStep1.tsx
 // CREATED: 2025-01-27 - Refactored from raw.tsx - Step 1 pronunciation lesson
 

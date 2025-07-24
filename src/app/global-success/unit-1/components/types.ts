@@ -35,3 +35,24 @@ export interface PronunciationSection {
   words: PronunciationWord[];
   isActive: boolean;
 }
+
+export interface SoundSortWord {
+  parts: [string, string, string];
+  sound: '/ʌ/' | '/əʊ/';
+  phonetic: string;
+}
+
+export interface OddOneOutWord {
+  parts: [string, string, string];
+  phonetic: string;
+  isAnswer: boolean;
+}
+
+export interface OddOneOutQuestion {
+  words: OddOneOutWord[];
+}
+
+export interface GameData {
+  soundSort: SoundSortWord[];
+  oddOneOut: OddOneOutQuestion[];
+}

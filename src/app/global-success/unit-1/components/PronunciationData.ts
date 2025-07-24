@@ -58,11 +58,27 @@ export const pronunciationSections: PronunciationSection[] = [
   },
   {
     id: 3,
-    title: 'Bước 3: Âm /æ/ và /eɪ/ - Daily Activities',
-    sound: '/æ/ và /eɪ/',
-    description: 'Thực hành âm ngắn và âm đôi qua các hoạt động hàng ngày.',
-    isActive: false,
-    words: []
+    title: 'Bước 3: Thử thách Game /ʌ/ và /əʊ/',
+    sound: '/ʌ/ và /əʊ/',
+    description: 'Thử thách! Đã đến lúc kiểm tra kỹ năng của bạn qua các trò chơi.',
+    isActive: true,
+    words: [
+      // Game words
+      { word: 'honey', phonetic: '/ˈhʌni/' },
+      { word: 'come', phonetic: '/kʌm/' },
+      { word: 'most', phonetic: '/məʊst/' },
+      { word: 'brother', phonetic: '/ˈbrʌðə(r)/' },
+      { word: 'go', phonetic: '/ɡəʊ/' },
+      { word: 'hold', phonetic: '/həʊld/' },
+      { word: 'bone', phonetic: '/bəʊn/' },
+      { word: 'month', phonetic: '/mʌnθ/' },
+      { word: 'opponent', phonetic: '/əˈpəʊnənt/' },
+      { word: 'summon', phonetic: '/ˈsʌmən/' },
+      { word: 'fun', phonetic: '/fʌn/' },
+      { word: 'gold', phonetic: '/ɡəʊld/' },
+      { word: 'love', phonetic: '/lʌv/' },
+      { word: 'code', phonetic: '/kəʊd/' }
+    ]
   },
   {
     id: 4,
@@ -155,3 +171,65 @@ export const step2Data = {
     ]
   }
 };
+
+// Game data for step 3
+export const getStep3GameData = () => ({
+  soundSort: [
+    { parts: ['h', 'o', 'ney'] as [string, string, string], sound: '/ʌ/' as '/ʌ/', phonetic: '/ˈhʌni/' },
+    { parts: ['c', 'o', 'me'] as [string, string, string], sound: '/ʌ/' as '/ʌ/', phonetic: '/kʌm/' },
+    { parts: ['m', 'o', 'st'] as [string, string, string], sound: '/əʊ/' as '/əʊ/', phonetic: '/məʊst/' },
+    { parts: ['br', 'o', 'ther'] as [string, string, string], sound: '/ʌ/' as '/ʌ/', phonetic: '/ˈbrʌðə(r)/' },
+    { parts: ['', 'go', ''] as [string, string, string], sound: '/əʊ/' as '/əʊ/', phonetic: '/ɡəʊ/' },
+    { parts: ['h', 'o', 'ld'] as [string, string, string], sound: '/əʊ/' as '/əʊ/', phonetic: '/həʊld/' },
+    { parts: ['b', 'o', 'ne'] as [string, string, string], sound: '/əʊ/' as '/əʊ/', phonetic: '/bəʊn/' },
+    { parts: ['m', 'o', 'nth'] as [string, string, string], sound: '/ʌ/' as '/ʌ/', phonetic: '/mʌnθ/' },
+    { parts: ['opp', 'o', 'nent'] as [string, string, string], sound: '/əʊ/' as '/əʊ/', phonetic: '/əˈpəʊnənt/' },
+    { parts: ['s', 'u', 'mmon'] as [string, string, string], sound: '/ʌ/' as '/ʌ/', phonetic: '/ˈsʌmən/' },
+    { parts: ['f', 'u', 'n'] as [string, string, string], sound: '/ʌ/' as '/ʌ/', phonetic: '/fʌn/' },
+    { parts: ['g', 'o', 'ld'] as [string, string, string], sound: '/əʊ/' as '/əʊ/', phonetic: '/ɡəʊld/' },
+    { parts: ['l', 'o', 've'] as [string, string, string], sound: '/ʌ/' as '/ʌ/', phonetic: '/lʌv/' },
+    { parts: ['c', 'o', 'de'] as [string, string, string], sound: '/əʊ/' as '/əʊ/', phonetic: '/kəʊd/' }
+  ],
+  oddOneOut: [
+    { 
+      words: [
+        { parts: ['c', 'o', 'mb'] as [string, string, string], phonetic: '/kəʊm/', isAnswer: false }, 
+        { parts: ['l', 'o', 've'] as [string, string, string], phonetic: '/lʌv/', isAnswer: true }, 
+        { parts: ['wh', 'o', 'le'] as [string, string, string], phonetic: '/həʊl/', isAnswer: false }, 
+        { parts: ['h', 'o', 'le'] as [string, string, string], phonetic: '/həʊl/', isAnswer: false }
+      ] 
+    },
+    { 
+      words: [
+        { parts: ['l', 'u', 'ck'] as [string, string, string], phonetic: '/lʌk/', isAnswer: false }, 
+        { parts: ['m', 'u', 'ch'] as [string, string, string], phonetic: '/mʌtʃ/', isAnswer: false }, 
+        { parts: ['sh', 'u', 't'] as [string, string, string], phonetic: '/ʃʌt/', isAnswer: false }, 
+        { parts: ['c', 'u', 'be'] as [string, string, string], phonetic: '/kjuːb/', isAnswer: true }
+      ] 
+    },
+    { 
+      words: [
+        { parts: ['p', 'o', 'st'] as [string, string, string], phonetic: '/pəʊst/', isAnswer: false }, 
+        { parts: ['f', 'o', 'lder'] as [string, string, string], phonetic: '/ˈfəʊldə(r)/', isAnswer: false }, 
+        { parts: ['p', 'o', 'em'] as [string, string, string], phonetic: '/ˈpəʊɪm/', isAnswer: false }, 
+        { parts: ['b', 'o', 'x'] as [string, string, string], phonetic: '/bɒks/', isAnswer: true }
+      ] 
+    },
+    { 
+      words: [
+        { parts: ['j', 'u', 'do'] as [string, string, string], phonetic: '/ˈdʒuːdəʊ/', isAnswer: true }, 
+        { parts: ['st', 'u', 'dy'] as [string, string, string], phonetic: '/ˈstʌdi/', isAnswer: false }, 
+        { parts: ['', 'u', 'ncle'] as [string, string, string], phonetic: '/ˈʌŋkl/', isAnswer: false }, 
+        { parts: ['', 'u', 'gly'] as [string, string, string], phonetic: '/ˈʌɡli/', isAnswer: false }
+      ] 
+    },
+    { 
+      words: [
+        { parts: ['m', 'o', 'ney'] as [string, string, string], phonetic: '/ˈmʌni/', isAnswer: true }, 
+        { parts: ['st', 'o', 'ne'] as [string, string, string], phonetic: '/stəʊn/', isAnswer: false }, 
+        { parts: ['r', 'o', 'lling'] as [string, string, string], phonetic: '/ˈrəʊlɪŋ/', isAnswer: false }, 
+        { parts: ['r', 'o', 'pe'] as [string, string, string], phonetic: '/rəʊp/', isAnswer: false }
+      ] 
+    }
+  ]
+});
