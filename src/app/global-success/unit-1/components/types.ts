@@ -69,3 +69,41 @@ export interface BossBattleState {
   gameState: GameState;
   feedbackText: string;
 }
+
+export interface Position {
+  r: number;
+  c: number;
+}
+
+export interface GridCell {
+  word: string;
+  isPath: boolean;
+}
+
+export interface PathfinderLevel {
+  grid: GridCell[][];
+  pathSound: '/ʌ/' | '/əʊ/';
+  gridSize: number;
+}
+
+export interface DifficultySettings {
+  gridSize: number;
+  lives: number;
+  name: string;
+  timer: number;
+}
+
+export type PathfinderGameState = 'difficulty' | 'playing' | 'won' | 'lost';
+
+export interface PathfinderState {
+  level: PathfinderLevel | null;
+  playerPos: Position;
+  playerPath: Position[];
+  lives: number;
+  gameState: PathfinderGameState;
+  difficulty: string;
+  timer: number;
+  correctStreak: number;
+  incorrectStreak: number;
+  feedbackMessage: string;
+}
