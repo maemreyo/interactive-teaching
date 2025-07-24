@@ -7,29 +7,46 @@ export const DIFFICULTY_SETTINGS: Record<string, DifficultySettings> = {
   easy: { gridSize: 5, lives: 5, name: 'Dễ', timer: 15 },
   medium: { gridSize: 6, lives: 3, name: 'Thường', timer: 10 },
   hard: { gridSize: 7, lives: 2, name: 'Khó', timer: 7 },
+  nightmare: { gridSize: 10, lives: 1, name: 'Siêu Khó', timer: 5 },
 };
 
 export const WORDS_UH = [
   'love', 'come', 'run', 'fun', 'month', 'luck', 'study', 'honey', 
-  'brother', 'double', 'stun', 'hunt', 'ugly', 'cup', 'summon'
+  'brother', 'double', 'stun', 'hunt', 'ugly', 'cup', 'summon',
+  // Nightmare level words - harder /ʌ/ sounds
+  'blood', 'flood', 'rough', 'tough', 'enough', 'young', 'country', 
+  'trouble', 'couple', 'nothing', 'something', 'wonderful', 'comfortable',
+  'government', 'company', 'money', 'monkey', 'onion', 'dozen', 'cousin'
 ];
 
 export const WORDS_OH = [
   'gold', 'bone', 'role', 'code', 'opponent', 'control', 'judo', 'most', 
-  'go', 'hold', 'soul', 'bonus', 'load', 'poem', 'open'
+  'go', 'hold', 'soul', 'bonus', 'load', 'poem', 'open',
+  // Nightmare level words - harder /əʊ/ sounds
+  'shoulder', 'although', 'approach', 'coach', 'throat', 'float', 'boat',
+  'remote', 'promote', 'compose', 'suppose', 'propose', 'expose', 'impose',
+  'global', 'local', 'social', 'total', 'hotel', 'postal', 'coastal'
 ];
 
 export const STREAK_MEMES = [
   "Double Kill!", "Triple Kill!", "Ultra Kill!", "RAMPAGE!", 
-  "Không thể cản phá!", "Thần Tốc!", "Quá nhanh, quá nguy hiểm!"
+  "Không thể cản phá!", "Thần Tốc!", "Quá nhanh, quá nguy hiểm!",
+  // Nightmare level streaks
+  "LEGENDARY!", "GODLIKE!", "BEYOND GODLIKE!", "Siêu nhân là đây!"
 ];
 
 export const FAIL_STREAK_MEMES = [
-  "Combo sai!", "Lại sai à?", "Bạn đang tấu hài à?", "Dừng lại đi..."
+  "Combo sai!", "Lại sai à?", "Bạn đang tấu hài à?", "Dừng lại đi...",
+  // Nightmare level fails
+  "RIP! Chỉ có 1 mạng thôi!", "Nightmare mode không tha thứ!", 
+  "Quá khó? Thử lại từ Easy đi!", "Bạn có chắc mình đã sẵn sàng?"
 ];
 
 export const TIMEOUT_MEMES = [
-  "Ngủ gật à?", "Nhanh lên nào!", "Hết giờ! Toang..."
+  "Ngủ gật à?", "Nhanh lên nào!", "Hết giờ! Toang...",
+  // Nightmare level timeouts
+  "5 giây thôi! Tốc độ ánh sáng đi!", "Nightmare = tốc độ Flash!", 
+  "Thời gian là vàng, bạn đang lãng phí!"
 ];
 
 // Randomized DFS for maze-like path generation
@@ -88,26 +105,52 @@ export const generatePath = (gridSize: number): Position[] => {
   return path;
 };
 
-export const generateLevel = (difficulty: string): PathfinderLevel => {
-  const { gridSize } = DIFFICULTY_SETTINGS[difficulty];
-  const pathSound: '/ʌ/' | '/əʊ/' = Math.random() < 0.5 ? '/ʌ/' : '/əʊ/';
+// Generate complex maze with traps for nightmare mode
+const generateNightmareMaze = (gridSize: number, pathSound: '/ʌ/' | '/əʊ/'): GridCell[][] => {
   const pathWords = pathSound === '/ʌ/' ? WORDS_UH : WORDS_OH;
   const distractorWords = pathSound === '/ʌ/' ? WORDS_OH : WORDS_UH;
-
+  
   const grid: GridCell[][] = Array(gridSize).fill(null).map(() => 
     Array(gridSize).fill(null)
   );
-  const path = generatePath(gridSize);
-
-  // Fill path cells
-  for (const pos of path) {
+  
+  // Generate main path
+  const mainPath = generatePath(gridSize);
+  
+  // Generate false paths (traps) - 30% of grid
+  const trapPaths: Position[] = [];
+  const numTraps = Math.floor(gridSize * gridSize * 0.3);
+  
+  for (let i = 0; i < numTraps; i++) {
+    const r = Math.floor(Math.random() * gridSize);
+    const c = Math.floor(Math.random() * gridSize);
+    const pos = { r, c };
+    
+    // Don't place traps on main path
+    if (!mainPath.some(p => p.r === r && p.c === c)) {
+      trapPaths.push(pos);
+    }
+  }
+  
+  // Fill main path with correct words
+  for (const pos of mainPath) {
     grid[pos.r][pos.c] = { 
       word: pathWords[Math.floor(Math.random() * pathWords.length)], 
       isPath: true 
     };
   }
-
-  // Fill non-path cells
+  
+  // Fill trap paths with correct words (to confuse players)
+  for (const pos of trapPaths) {
+    if (!grid[pos.r][pos.c]) {
+      grid[pos.r][pos.c] = { 
+        word: pathWords[Math.floor(Math.random() * pathWords.length)], 
+        isPath: false // This is the trap!
+      };
+    }
+  }
+  
+  // Fill remaining cells with distractor words
   for (let r = 0; r < gridSize; r++) {
     for (let c = 0; c < gridSize; c++) {
       if (!grid[r][c]) {
@@ -115,6 +158,46 @@ export const generateLevel = (difficulty: string): PathfinderLevel => {
           word: distractorWords[Math.floor(Math.random() * distractorWords.length)], 
           isPath: false 
         };
+      }
+    }
+  }
+  
+  return grid;
+};
+
+export const generateLevel = (difficulty: string): PathfinderLevel => {
+  const { gridSize } = DIFFICULTY_SETTINGS[difficulty];
+  const pathSound: '/ʌ/' | '/əʊ/' = Math.random() < 0.5 ? '/ʌ/' : '/əʊ/';
+  const pathWords = pathSound === '/ʌ/' ? WORDS_UH : WORDS_OH;
+  const distractorWords = pathSound === '/ʌ/' ? WORDS_OH : WORDS_UH;
+
+  let grid: GridCell[][];
+  
+  if (difficulty === 'nightmare') {
+    // Use complex maze generation for nightmare mode
+    grid = generateNightmareMaze(gridSize, pathSound);
+  } else {
+    // Use simple generation for other difficulties
+    grid = Array(gridSize).fill(null).map(() => Array(gridSize).fill(null));
+    const path = generatePath(gridSize);
+
+    // Fill path cells
+    for (const pos of path) {
+      grid[pos.r][pos.c] = { 
+        word: pathWords[Math.floor(Math.random() * pathWords.length)], 
+        isPath: true 
+      };
+    }
+
+    // Fill non-path cells
+    for (let r = 0; r < gridSize; r++) {
+      for (let c = 0; c < gridSize; c++) {
+        if (!grid[r][c]) {
+          grid[r][c] = { 
+            word: distractorWords[Math.floor(Math.random() * distractorWords.length)], 
+            isPath: false 
+          };
+        }
       }
     }
   }

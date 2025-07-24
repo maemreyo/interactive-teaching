@@ -6,16 +6,27 @@ import React from 'react';
 interface PathfinderResultScreenProps {
   didWin: boolean;
   onRestart: () => void;
+  difficulty?: string;
 }
 
-export const PathfinderResultScreen = ({ didWin, onRestart }: PathfinderResultScreenProps) => {
-  const winMessages = [
+export const PathfinderResultScreen = ({ didWin, onRestart, difficulty = 'medium' }: PathfinderResultScreenProps) => {
+  const isNightmare = difficulty === 'nightmare';
+  
+  const winMessages = isNightmare ? [
+    '🏆 HUYỀN THOẠI! Bạn đã chinh phục Nightmare Mode!',
+    '👑 THẦN THÁNH! Chỉ có 1% người chơi làm được điều này!',
+    '🔥 SIÊU PHÀM! Bạn là Master của Pathfinder!'
+  ] : [
     'Đỉnh của chóp! Con đường này quá dễ với bạn.', 
     'Bậc thầy dẫn lối là đây chứ đâu!', 
     'Easy game! Chắc bạn nhìn bản đồ trước rồi phải không?'
   ];
   
-  const loseMessages = [
+  const loseMessages = isNightmare ? [
+    '💀 Nightmare Mode không tha thứ! Thử lại từ Easy?',
+    '⚡ Quá nhanh, quá nguy hiểm! Bạn cần luyện tập thêm.',
+    '🔥 Bẫy Nightmare đã nuốt chửng bạn! RIP!'
+  ] : [
     'Lạc lối à? Để mình gọi Google Maps giúp nhé.', 
     'Game này khó hay do bạn... thôi chắc là do game khó.', 
     'Bạn đã cố gắng... để thua. Chơi lại phục thù nào!'

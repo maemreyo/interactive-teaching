@@ -124,12 +124,27 @@ export const PronunciationStep5 = () => {
       setPlayerPath(prev => [...prev, { r, c }]);
       if (r === level.gridSize - 1 && c === level.gridSize - 1) {
         soundEffects.playSoundEffect('win');
+        
+        // Special victory message for nightmare mode
+        if (difficulty === 'nightmare') {
+          showFeedback('🏆 NIGHTMARE CONQUERED! 🏆');
+        }
+        
         setGameState('won');
       }
     } else {
       const newFailStreak = incorrectStreak + 1;
       setIncorrectStreak(newFailStreak);
       setCorrectStreak(0);
+      
+      // Nightmare mode: extra harsh feedback
+      if (difficulty === 'nightmare') {
+        showFeedback('💀 NIGHTMARE TRAP! GAME OVER! 💀');
+        soundEffects.playSoundEffect('lose');
+        setGameState('lost');
+        return; // Instant death in nightmare mode
+      }
+      
       if(newFailStreak >= 2) {
         showFeedback(FAIL_STREAK_MEMES[Math.min(newFailStreak - 2, FAIL_STREAK_MEMES.length - 1)]);
       }
@@ -137,11 +152,13 @@ export const PronunciationStep5 = () => {
       const newLives = lives - 1;
       setLives(newLives);
       
-      // Shake animation
+      // Enhanced shake animation for nightmare mode
       const app = document.getElementById('pathfinder-app');
       if (app) {
-        app.classList.add('animate-shake');
-        setTimeout(() => app.classList.remove('animate-shake'), 500);
+        app.classList.add(difficulty === 'nightmare' ? 'animate-nightmare-shake' : 'animate-shake');
+        setTimeout(() => {
+          app.classList.remove('animate-nightmare-shake', 'animate-shake');
+        }, difficulty === 'nightmare' ? 1000 : 500);
       }
       
       if (newLives <= 0) {
@@ -174,7 +191,8 @@ export const PronunciationStep5 = () => {
       {(gameState === 'won' || gameState === 'lost') && (
         <PathfinderResultScreen 
           didWin={gameState === 'won'} 
-          onRestart={restartGame} 
+          onRestart={restartGame}
+          difficulty={difficulty}
         />
       )}
       
@@ -186,7 +204,7 @@ export const PronunciationStep5 = () => {
       />
       
       <div 
-        className="grid gap-2" 
+        className={`grid gap-1 ${difficulty === 'nightmare' ? 'max-w-full' : 'gap-2'}`}
         style={{gridTemplateColumns: `repeat(${level.gridSize}, minmax(0, 1fr))`}}
       >
         {level.grid.map((row, r) =>
@@ -197,7 +215,8 @@ export const PronunciationStep5 = () => {
               pos={{ r, c }} 
               playerPos={playerPos} 
               isVisited={isVisited(r, c)} 
-              onClick={() => handleCellClick(r, c)} 
+              onClick={() => handleCellClick(r, c)}
+              difficulty={difficulty}
             />
           ))
         )}
@@ -219,6 +238,22 @@ export const PronunciationStep5 = () => {
         }
         .animate-shake { 
           animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both; 
+        }
+        @keyframes nightmare-shake { 
+          0% { transform: translate3d(0, 0, 0) rotate(0deg); } 
+          10% { transform: translate3d(-10px, -10px, 0) rotate(-2deg); } 
+          20% { transform: translate3d(10px, -5px, 0) rotate(1deg); } 
+          30% { transform: translate3d(-8px, 8px, 0) rotate(-1deg); } 
+          40% { transform: translate3d(8px, 5px, 0) rotate(2deg); } 
+          50% { transform: translate3d(-5px, -8px, 0) rotate(-2deg); } 
+          60% { transform: translate3d(5px, 8px, 0) rotate(1deg); } 
+          70% { transform: translate3d(-8px, -5px, 0) rotate(-1deg); } 
+          80% { transform: translate3d(8px, -8px, 0) rotate(2deg); } 
+          90% { transform: translate3d(-5px, 5px, 0) rotate(-1deg); } 
+          100% { transform: translate3d(0, 0, 0) rotate(0deg); } 
+        }
+        .animate-nightmare-shake { 
+          animation: nightmare-shake 1s cubic-bezier(.36,.07,.19,.97) both; 
         }
         @keyframes fade-in-out { 
           0% { opacity: 0; transform: translateY(-20px) translateX(-50%); } 
