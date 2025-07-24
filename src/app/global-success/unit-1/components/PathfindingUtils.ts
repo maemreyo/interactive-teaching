@@ -36,18 +36,18 @@ export const TIMEOUT_MEMES = [
 export const generatePath = (gridSize: number): Position[] => {
   const START_POS: Position = { r: 0, c: 0 };
   const END_POS: Position = { r: gridSize - 1, c: gridSize - 1 };
-  let stack = [START_POS];
-  let visited = new Set(['0,0']);
-  let path: Position[] = [];
-  let pathMap: Record<string, Position> = {};
+  const stack = [START_POS];
+  const visited = new Set(['0,0']);
+  const path: Position[] = [];
+  const pathMap: Record<string, Position> = {};
 
   while (stack.length > 0) {
-    let current = stack[stack.length - 1];
+    const current = stack[stack.length - 1];
     pathMap[`${current.r},${current.c}`] = current;
 
     if (current.r === END_POS.r && current.c === END_POS.c) break;
 
-    let neighbors: Position[] = [];
+    const neighbors: Position[] = [];
     const moves = [{r:1, c:0}, {r:0, c:1}, {r:-1, c:0}, {r:0, c:-1}];
     
     // Shuffle moves to get random paths
@@ -79,7 +79,7 @@ export const generatePath = (gridSize: number): Position[] => {
   while(current.r !== START_POS.r || current.c !== START_POS.c){
     path.unshift(current);
     // Find parent in pathMap
-    let parent = Object.values(pathMap).find(p => 
+    const parent = Object.values(pathMap).find(p => 
       Math.abs(p.r - current.r) + Math.abs(p.c - current.c) === 1
     );
     current = parent || START_POS;
@@ -94,10 +94,10 @@ export const generateLevel = (difficulty: string): PathfinderLevel => {
   const pathWords = pathSound === '/ʌ/' ? WORDS_UH : WORDS_OH;
   const distractorWords = pathSound === '/ʌ/' ? WORDS_OH : WORDS_UH;
 
-  let grid: GridCell[][] = Array(gridSize).fill(null).map(() => 
+  const grid: GridCell[][] = Array(gridSize).fill(null).map(() => 
     Array(gridSize).fill(null)
   );
-  let path = generatePath(gridSize);
+  const path = generatePath(gridSize);
 
   // Fill path cells
   for (const pos of path) {
