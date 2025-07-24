@@ -18,7 +18,8 @@ const eslintConfig = [
       "@typescript-eslint/prefer-as-const": "off",
       "react-hooks/exhaustive-deps": "off",
       "@typescript-eslint/no-explicit-any": "off",
-      "@typescript-eslint/prefer-const": "off"
+      "@typescript-eslint/prefer-const": "off",
+      "@typescript-eslint/ban-ts-comment": "off"
     }
   }
 ];

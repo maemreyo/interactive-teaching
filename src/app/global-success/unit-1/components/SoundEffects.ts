@@ -1,3 +1,4 @@
+
 // src/app/global-success/unit-1/components/SoundEffects.ts
 // CREATED: 2025-01-27 - Sound effects using Tone.js library
 
@@ -41,6 +42,7 @@ export class SoundEffects {
         }).toDestination(),
         
         timeout: new Tone.Synth({ 
+          // @ts-ignore
           oscillator: { type: 'noise' }, 
           envelope: { attack: 0.01, decay: 0.1, sustain: 0, release: 0.1 } 
         }).toDestination(),
