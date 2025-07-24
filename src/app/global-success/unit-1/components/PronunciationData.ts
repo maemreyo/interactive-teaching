@@ -82,11 +82,37 @@ export const pronunciationSections: PronunciationSection[] = [
   },
   {
     id: 4,
-    title: 'Bước 4: Âm /ɒ/ và /ɔː/ - School Subjects',
-    sound: '/ɒ/ và /ɔː/',
-    description: 'Phân biệt âm ngắn và âm dài qua tên các môn học.',
-    isActive: false,
-    words: []
+    title: 'Bước 4: Boss Battle - Speech Recognition',
+    sound: '/ʌ/ và /əʊ/',
+    description: 'Chiến đấu với Trùm Phát Âm bằng giọng nói! Sử dụng microphone để tấn công.',
+    isActive: true,
+    words: [
+      // Boss battle words
+      { word: 'run', phonetic: '/rʌn/' },
+      { word: 'jump', phonetic: '/dʒʌmp/' },
+      { word: 'fun', phonetic: '/fʌn/' },
+      { word: 'stun', phonetic: '/stʌn/' },
+      { word: 'hunt', phonetic: '/hʌnt/' },
+      { word: 'luck', phonetic: '/lʌk/' },
+      { word: 'double', phonetic: '/ˈdʌbəl/' },
+      { word: 'summon', phonetic: '/ˈsʌmən/' },
+      { word: 'love', phonetic: '/lʌv/' },
+      { word: 'month', phonetic: '/mʌnθ/' },
+      { word: 'come', phonetic: '/kʌm/' },
+      { word: 'brother', phonetic: '/ˈbrʌðə(r)/' },
+      { word: 'go', phonetic: '/ɡəʊ/' },
+      { word: 'gold', phonetic: '/ɡəʊld/' },
+      { word: 'role', phonetic: '/rəʊl/' },
+      { word: 'soul', phonetic: '/səʊl/' },
+      { word: 'code', phonetic: '/kəʊd/' },
+      { word: 'bonus', phonetic: '/ˈbəʊnəs/' },
+      { word: 'control', phonetic: '/kənˈtrəʊl/' },
+      { word: 'load', phonetic: '/ləʊd/' },
+      { word: 'opponent', phonetic: '/əˈpəʊnənt/' },
+      { word: 'hold', phonetic: '/həʊld/' },
+      { word: 'bone', phonetic: '/bəʊn/' },
+      { word: 'most', phonetic: '/məʊst/' }
+    ]
   },
   {
     id: 5,
@@ -233,3 +259,9 @@ export const getStep3GameData = () => ({
     }
   ]
 });
+
+// Boss battle challenge words for step 4
+export const getBossBattleWords = (): string[] => [
+  'run', 'jump', 'fun', 'stun', 'hunt', 'luck', 'double', 'summon', 'love', 'month', 'come', 'brother',
+  'go', 'gold', 'role', 'soul', 'code', 'bonus', 'control', 'load', 'opponent', 'hold', 'bone', 'most'
+];

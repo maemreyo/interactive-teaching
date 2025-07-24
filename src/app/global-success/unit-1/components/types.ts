@@ -56,3 +56,16 @@ export interface GameData {
   soundSort: SoundSortWord[];
   oddOneOut: OddOneOutQuestion[];
 }
+
+export type GameState = 'ready' | 'playing' | 'over';
+
+export interface BossBattleState {
+  words: string[];
+  currentWord: string;
+  playerHealth: number;
+  cpuHealth: number;
+  score: number;
+  isListening: boolean;
+  gameState: GameState;
+  feedbackText: string;
+}

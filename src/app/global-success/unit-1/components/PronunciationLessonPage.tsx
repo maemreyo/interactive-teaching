@@ -11,6 +11,7 @@ import { pronunciationSections } from './PronunciationData';
 import { PronunciationStep1 } from './PronunciationStep1';
 import { PronunciationStep2 } from './PronunciationStep2';
 import { PronunciationStep3 } from './PronunciationStep3';
+import { PronunciationStep4 } from './PronunciationStep4';
 
 export const PronunciationLessonPage = ({ setPage }: SetPageProps) => {
   const [currentStep, setCurrentStep] = useState<number | null>(null);
@@ -24,6 +25,7 @@ export const PronunciationLessonPage = ({ setPage }: SetPageProps) => {
       case 3:
         return <PronunciationStep3 />;
       case 4:
+        return <PronunciationStep4 />;
       case 5:
       case 6:
         return (
@@ -128,7 +130,7 @@ export const PronunciationLessonPage = ({ setPage }: SetPageProps) => {
               ))}
             </div>
             <p className="text-center text-gray-600 mt-4">
-              <span className="font-semibold text-green-600">3/6</span> bài học đã hoàn thành
+              <span className="font-semibold text-green-600">4/6</span> bài học đã hoàn thành
             </p>
           </div>
         </motion.div>
