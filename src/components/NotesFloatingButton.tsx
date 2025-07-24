@@ -79,7 +79,7 @@ const NotesFloatingButton: React.FC<NotesFloatingButtonProps> = ({ unitId }) => 
       </motion.button>
 
       {/* Enhanced Vocabulary Tooltips */}
-      <EnhancedVocabularyTooltip
+      {/* <EnhancedVocabularyTooltip
         vocabulary={vocabulary}
         isEnabled={settings.tooltipsEnabled && !isNotesOpen && !isReportOpen}
         spacedRepetitionEnabled={settings.spacedRepetitionEnabled}
@@ -88,7 +88,7 @@ const NotesFloatingButton: React.FC<NotesFloatingButtonProps> = ({ unitId }) => 
         onVocabularyInteraction={handleVocabularyInteraction}
         onDifficultyFeedback={handleDifficultyFeedback}
         vocabularyDueForReview={vocabularyDueForReview}
-      />
+      /> */}
 
       {/* Notes Tool Modal */}
       <NotesTool

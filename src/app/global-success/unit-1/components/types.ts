@@ -1,4 +1,4 @@
-export type PageType = "home" | "flashcards" | "game" | "quiz" | "history" | "grammar";
+export type PageType = "home" | "flashcards" | "game" | "quiz" | "history" | "grammar" | "pronunciation";
 
 export interface SetPageProps {
   setPage: (page: PageType) => void;
@@ -20,4 +20,18 @@ export interface GrammarSlide {
   id: number;
   title: string;
   component: React.ComponentType;
+}
+
+export interface PronunciationWord {
+  word: string;
+  phonetic: string;
+}
+
+export interface PronunciationSection {
+  id: number;
+  title: string;
+  sound: string;
+  description: string;
+  words: PronunciationWord[];
+  isActive: boolean;
 }

@@ -8,6 +8,7 @@ import { HomePage } from "./components/HomePage";
 import { QuizGamePage } from "./components/QuizGamePage";
 import { QuizHistory } from "./components/QuizHistory";
 import { GrammarLessonPage } from "./components/GrammarLessonPage";
+import { PronunciationLessonPage } from "./components/PronunciationLessonPage";
 import { PageType } from "./components/types";
 import NotesFloatingButton from "../../../components/NotesFloatingButton";
 
@@ -18,6 +19,8 @@ export default function App() {
     switch (page) {
       case "grammar":
         return <GrammarLessonPage setPage={setPage} />;
+      case "pronunciation":
+        return <PronunciationLessonPage setPage={setPage} />;
       case "flashcards":
         return <FlashcardsPage setPage={setPage} />;
       case "game":

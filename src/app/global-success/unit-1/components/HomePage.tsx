@@ -26,9 +26,9 @@ export const HomePage = ({ setPage }: SetPageProps) => (
       transition={{ duration: 0.5, delay: 0.2 }}
       className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 max-w-6xl mx-auto"
     >
-      {/* Grammar Lessons Column */}
+      {/* Learning Modules Column */}
       <div className="space-y-6">
-        <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">📚 Grammar Lessons</h2>
+        <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">📚 Learning Modules</h2>
         
         <Card
           className="p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200"
@@ -63,6 +63,43 @@ export const HomePage = ({ setPage }: SetPageProps) => (
               <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Complete</span>
               <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Interactive</span>
               <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Practice</span>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card
+          className="p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer bg-gradient-to-br from-pink-50 to-rose-50 border-2 border-pink-200"
+          onClick={() => setPage("pronunciation")}
+        >
+          <CardHeader>
+            <CardTitle className="text-3xl text-pink-700 mb-4">🎵 Pronunciation Practice</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-lg text-gray-700 mb-4">Học phát âm tiếng Anh qua 6 bước từ cơ bản đến nâng cao</p>
+            
+            <div className="grid grid-cols-2 gap-3 mb-4">
+              <div className="bg-green-100 rounded-lg p-3 text-center">
+                <div className="text-green-700 font-semibold text-sm">Bước 1: Khởi động</div>
+                <div className="text-xs text-green-600">✅ Hoàn thành</div>
+              </div>
+              <div className="bg-green-100 rounded-lg p-3 text-center">
+                <div className="text-green-700 font-semibold text-sm">Bước 2: Chi tiết</div>
+                <div className="text-xs text-green-600">✅ Hoàn thành</div>
+              </div>
+              <div className="bg-gray-100 rounded-lg p-3 text-center">
+                <div className="text-gray-600 font-semibold text-sm">Bước 3: /æ/ & /eɪ/</div>
+                <div className="text-xs text-gray-500">🚧 Sắp ra mắt</div>
+              </div>
+              <div className="bg-gray-100 rounded-lg p-3 text-center">
+                <div className="text-gray-600 font-semibold text-sm">+ 3 bước nữa</div>
+                <div className="text-xs text-gray-500">🚧 Đang phát triển</div>
+              </div>
+            </div>
+            
+            <div className="flex flex-wrap gap-2">
+              <span className="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm">Phát âm</span>
+              <span className="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm">Tương tác</span>
+              <span className="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm">Từ vựng</span>
             </div>
           </CardContent>
         </Card>
