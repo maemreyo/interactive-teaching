@@ -157,11 +157,39 @@ export const pronunciationSections: PronunciationSection[] = [
   },
   {
     id: 6,
-    title: 'Bước 6: Tổng hợp và Ôn tập',
-    sound: 'Mixed Sounds',
-    description: 'Ôn tập tất cả các âm đã học qua game tương tác.',
-    isActive: false,
-    words: []
+    title: 'Bước 6: Bài Tập Về Nhà',
+    sound: '/ʌ/ và /əʊ/',
+    description: 'Luyện đọc hiểu với 3 bài đọc tương tác. Học từ vựng qua ngữ cảnh và luyện phát âm.',
+    isActive: true,
+    words: [
+      // Homework vocabulary from reading passages
+      { word: 'show', phonetic: '/ʃəʊ/' },
+      { word: 'lovely', phonetic: '/ˈlʌvli/' },
+      { word: 'home', phonetic: '/həʊm/' },
+      { word: 'go', phonetic: '/ɡəʊ/' },
+      { word: 'brother', phonetic: '/ˈbrʌðə(r)/' },
+      { word: 'fun', phonetic: '/fʌn/' },
+      { word: 'hope', phonetic: '/həʊp/' },
+      { word: 'club', phonetic: '/klʌb/' },
+      { word: 'one', phonetic: '/wʌn/' },
+      { word: 'don\'t', phonetic: '/dəʊnt/' },
+      { word: 'gloves', phonetic: '/ɡlʌvz/' },
+      { word: 'mother', phonetic: '/ˈmʌðə(r)/' },
+      { word: 'so', phonetic: '/səʊ/' },
+      { word: 'Some', phonetic: '/sʌm/' },
+      { word: 'study', phonetic: '/ˈstʌdi/' },
+      { word: 'subject', phonetic: '/ˈsʌbdʒɪkt/' },
+      { word: 'piano', phonetic: '/piˈænəʊ/' },
+      { word: 'know', phonetic: '/nəʊ/' },
+      { word: 'wonderful', phonetic: '/ˈwʌndəfl/' },
+      { word: 'Monday', phonetic: '/ˈmʌndeɪ/' },
+      { word: 'open', phonetic: '/ˈəʊpən/' },
+      { word: 'window', phonetic: '/ˈwɪndəʊ/' },
+      { word: 'dove', phonetic: '/dʌv/' },
+      { word: 'poem', phonetic: '/ˈpəʊɪm/' },
+      { word: 'month', phonetic: '/mʌnθ/' },
+      { word: 'love', phonetic: '/lʌv/' }
+    ]
   }
 ];
 

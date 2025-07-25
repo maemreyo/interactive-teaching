@@ -107,3 +107,24 @@ export interface PathfinderState {
   incorrectStreak: number;
   feedbackMessage: string;
 }
+
+export interface ReadingContentItem {
+  type: 'text' | 'interactive';
+  content?: string;
+  word?: string;
+  sound?: '/ʌ/' | '/əʊ/' | string;
+  phonetic?: string;
+  meaning?: string;
+}
+
+export interface ReadingPassage {
+  title: string;
+  content: ReadingContentItem[];
+}
+
+export interface HomeworkState {
+  currentPassage: number;
+  completedPassages: number[];
+  totalWordsClicked: number;
+  isCameraVisible: boolean;
+}

@@ -13,6 +13,7 @@ import { PronunciationStep2 } from './PronunciationStep2';
 import { PronunciationStep3 } from './PronunciationStep3';
 import { PronunciationStep4 } from './PronunciationStep4';
 import { PronunciationStep5 } from './PronunciationStep5';
+import { PronunciationHomework } from './PronunciationHomework';
 
 export const PronunciationLessonPage = ({ setPage }: SetPageProps) => {
   const [currentStep, setCurrentStep] = useState<number | null>(null);
@@ -30,27 +31,7 @@ export const PronunciationLessonPage = ({ setPage }: SetPageProps) => {
       case 5:
         return <PronunciationStep5 />;
       case 6:
-        return (
-          <div className="min-h-screen bg-gray-900 text-white font-sans flex flex-col items-center justify-center p-4 sm:p-8">
-            <div className="text-center">
-              <h1 className="text-4xl sm:text-5xl font-bold text-gray-400 mb-6">
-                🚧 Đang phát triển
-              </h1>
-              <p className="text-xl text-gray-500 mb-8">
-                {pronunciationSections.find(s => s.id === stepId)?.title}
-              </p>
-              <p className="text-lg text-gray-400 mb-8 max-w-2xl">
-                {pronunciationSections.find(s => s.id === stepId)?.description}
-              </p>
-              <button
-                onClick={() => setCurrentStep(null)}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors"
-              >
-                ← Quay lại danh sách bài học
-              </button>
-            </div>
-          </div>
-        );
+        return <PronunciationHomework />;
       default:
         return null;
     }
@@ -132,7 +113,7 @@ export const PronunciationLessonPage = ({ setPage }: SetPageProps) => {
               ))}
             </div>
             <p className="text-center text-gray-600 mt-4">
-              <span className="font-semibold text-green-600">5/6</span> bài học đã hoàn thành
+              <span className="font-semibold text-green-600">6/6</span> bài học đã hoàn thành
             </p>
           </div>
         </motion.div>
