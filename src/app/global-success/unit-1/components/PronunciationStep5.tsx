@@ -85,7 +85,10 @@ export const PronunciationStep5 = () => {
     };
   }, [gameState]);
 
-  const handleSelectDifficulty = (selectedDifficulty: string) => {
+  const handleSelectDifficulty = async (selectedDifficulty: string) => {
+    // Ensure sound effects are initialized before setting difficulty
+    await soundEffects.initialize();
+    soundEffects.setDifficulty(selectedDifficulty);
     soundEffects.playSoundEffect('start');
     setDifficulty(selectedDifficulty);
     const settings = DIFFICULTY_SETTINGS[selectedDifficulty];
@@ -99,20 +102,27 @@ export const PronunciationStep5 = () => {
   };
 
   const restartGame = () => {
+    soundEffects.stopBackgroundMusic();
     setGameState('difficulty');
     setLevel(null);
   };
 
-  const handleCellClick = (r: number, c: number) => {
+  const handleCellClick = async (r: number, c: number) => {
     if (gameState !== 'playing' || !level) return;
     const isAdjacent = Math.abs(r - playerPos.r) + Math.abs(c - playerPos.c) === 1;
     if (!isAdjacent) return;
+    
+    // Ensure sound effects are initialized
+    await soundEffects.initialize();
     
     resetTimer();
     const clickedCell = level.grid[r][c];
     soundEffects.playWordSound(clickedCell.word, difficulty);
 
     if (clickedCell.isPath) {
+      // Play correct sound effect
+      soundEffects.playSoundEffect('correct');
+      
       const newStreak = correctStreak + 1;
       setCorrectStreak(newStreak);
       setIncorrectStreak(0);
@@ -133,6 +143,9 @@ export const PronunciationStep5 = () => {
         setGameState('won');
       }
     } else {
+      // Play incorrect sound effect
+      soundEffects.playSoundEffect('incorrect');
+      
       const newFailStreak = incorrectStreak + 1;
       setIncorrectStreak(newFailStreak);
       setCorrectStreak(0);
@@ -140,7 +153,7 @@ export const PronunciationStep5 = () => {
       // Nightmare mode: extra harsh feedback
       if (difficulty === 'nightmare') {
         showFeedback('💀 NIGHTMARE TRAP! GAME OVER! 💀');
-        soundEffects.playSoundEffect('lose');
+        soundEffects.playSoundEffect('nightmare');
         setGameState('lost');
         return; // Instant death in nightmare mode
       }

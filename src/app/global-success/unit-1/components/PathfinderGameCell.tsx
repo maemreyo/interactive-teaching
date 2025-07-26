@@ -1,5 +1,5 @@
 // src/app/global-success/unit-1/components/PathfinderGameCell.tsx
-// CREATED: 2025-01-27 - Game cell component for pathfinder maze
+// UPDATED: 2025-01-27 - Removed visual hints to prevent cheating
 
 import React from 'react';
 import { GridCell, Position } from './types';
@@ -36,16 +36,15 @@ export const PathfinderGameCell = ({
   const cellSize = isNightmare ? 'h-12 sm:h-16' : 'h-20 sm:h-24';
   const fontSize = isNightmare ? 'text-sm sm:text-lg' : 'text-lg sm:text-2xl';
   
-  // Nightmare mode: add danger indicators for trap cells
-  const isDangerousCell = isNightmare && !data.isPath && data.word.length > 6;
-  const dangerClass = isDangerousCell ? 'border-2 border-red-500/50' : '';
+  // No visual hints about correct path - players must discover it themselves
+  const nightmareClass = '';
   
   return (
     <button 
       onClick={onClick} 
       className={`w-full ${cellSize} flex items-center justify-center text-center font-bold ${fontSize} rounded-lg transition-all duration-200 transform ${
         isPlayerHere ? 'scale-110' : ''
-      } ${cellClass} ${dangerClass} ${
+      } ${cellClass} ${nightmareClass} ${
         isNightmare ? 'hover:shadow-lg hover:shadow-red-500/20' : ''
       }`}
     >

@@ -105,7 +105,7 @@ export const generatePath = (gridSize: number): Position[] => {
   return path;
 };
 
-// Generate complex maze with traps for nightmare mode
+// Generate complex maze for nightmare mode - FIXED: No more trap cells with correct words
 const generateNightmareMaze = (gridSize: number, pathSound: '/ʌ/' | '/əʊ/'): GridCell[][] => {
   const pathWords = pathSound === '/ʌ/' ? WORDS_UH : WORDS_OH;
   const distractorWords = pathSound === '/ʌ/' ? WORDS_OH : WORDS_UH;
@@ -117,21 +117,6 @@ const generateNightmareMaze = (gridSize: number, pathSound: '/ʌ/' | '/əʊ/'): 
   // Generate main path
   const mainPath = generatePath(gridSize);
   
-  // Generate false paths (traps) - 30% of grid
-  const trapPaths: Position[] = [];
-  const numTraps = Math.floor(gridSize * gridSize * 0.3);
-  
-  for (let i = 0; i < numTraps; i++) {
-    const r = Math.floor(Math.random() * gridSize);
-    const c = Math.floor(Math.random() * gridSize);
-    const pos = { r, c };
-    
-    // Don't place traps on main path
-    if (!mainPath.some(p => p.r === r && p.c === c)) {
-      trapPaths.push(pos);
-    }
-  }
-  
   // Fill main path with correct words
   for (const pos of mainPath) {
     grid[pos.r][pos.c] = { 
@@ -140,17 +125,8 @@ const generateNightmareMaze = (gridSize: number, pathSound: '/ʌ/' | '/əʊ/'): 
     };
   }
   
-  // Fill trap paths with correct words (to confuse players)
-  for (const pos of trapPaths) {
-    if (!grid[pos.r][pos.c]) {
-      grid[pos.r][pos.c] = { 
-        word: pathWords[Math.floor(Math.random() * pathWords.length)], 
-        isPath: false // This is the trap!
-      };
-    }
-  }
-  
-  // Fill remaining cells with distractor words
+  // Fill ALL remaining cells with distractor words (wrong sound)
+  // This ensures only the correct path has correct words
   for (let r = 0; r < gridSize; r++) {
     for (let c = 0; c < gridSize; c++) {
       if (!grid[r][c]) {
